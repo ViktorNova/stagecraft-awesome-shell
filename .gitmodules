@@ -1,0 +1,9 @@
+[submodule "blingbling"]
+	path = blingbling
+	url = ./blingbling
+[submodule "blind"]
+	path = blind
+	url = ./blind
+[submodule "revelation"]
+	path = revelation
+	url = ./revelation
