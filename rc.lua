@@ -19,6 +19,9 @@ require("eminent")
 -- Load Debian menu entries
 require("debian.menu")
 
+-- i3-style window layouts
+local treesome = require("treesome")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -64,6 +67,7 @@ modkey = "Mod4"
 local layouts =
 {
     awful.layout.suit.floating,
+    treesome,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
