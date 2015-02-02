@@ -7,3 +7,6 @@
 [submodule "revelation"]
 	path = revelation
 	url = ./revelation
+[submodule "treesome"]
+	path = treesome
+	url = https://github.com/RobSis/treesome.git
