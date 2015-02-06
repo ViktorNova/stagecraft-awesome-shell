@@ -68,7 +68,7 @@ beautiful.init("~/.config/awesome/blind/arrow/themeHolo.lua")
 config.load()
 config.themePath = awful.util.getdir("config") .. "/blind/" .. config.themeName .. "/"
 config.iconPath  = config.themePath       .. "Icon/"
-theme.layout_leaved = ("~/.config/awesome/awesome-leaved/leaved.png")
+theme.layout_leaved = "~/.config/awesome/awesome-leaved/leaved.png"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
@@ -268,8 +268,8 @@ globalkeys = awful.util.table.join(
             if client.focus then client.focus:raise() end
         end),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
-
-    -- Layout manipulation
+    
+            -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
@@ -282,8 +282,42 @@ globalkeys = awful.util.table.join(
                 client.focus:raise()
             end
         end),
-
-    -- Standard program
+            
+    -- i3-style keybindings for awesome-leaved:
+    -- To switch the orientation of the current container use shiftOrder:
+    awful.key({ modkey }, "o", leaved.keys.shiftOrder),
+    -- To force the current container to split in a certain direction, bind any or all of the following functions:
+    awful.key({ modkey, "Shift" }, "h", leaved.keys.splitH), --split next horizontal
+    awful.key({ modkey, "Shift" }, "v", leaved.keys.splitV), --split next vertical
+    awful.key({ modkey, "Shift" }, "o", leaved.keys.splitOpp), --split in opposing direction
+    -- To switch between no tabs, tabs and stack use shiftStyle:
+    awful.key({ modkey, "Shift" }, "t", leaved.keys.shiftStyle),
+    -- To scale windows there are two options,
+    -- use vertical and horizontal scaling and include the percentage points to scale as an argument: 
+    awful.key({ modkey, "Shift" }, "]", leaved.keys.scaleV(-5)),
+    awful.key({ modkey, "Shift" }, "[", leaved.keys.scaleV(5)),
+    awful.key({ modkey }, "]", leaved.keys.scaleH(-5)),
+    awful.key({ modkey }, "[", leaved.keys.scaleH(5)),
+    -- Or scale based on the focused client and its opposite direction:
+    -- focusedScale will always make the current client bigger or smaller in its container
+    -- oppositeScale will always scale in the opposing direction.
+    awful.key({ modkey, "Shift" }, "]", leaved.keys.scaleOpposite(-5)),
+    awful.key({ modkey, "Shift" }, "[", leaved.keys.scaleOpposite(5)),
+    awful.key({ modkey }, "]", leaved.keys.scaleFocused(-5)),
+    awful.key({ modkey }, "[", leaved.keys.scaleFocused(5)),
+    -- To swap two clients in the tree, use swap:
+    awful.key({ modkey }, "'", leaved.keys.swap),
+    -- To select a client with the keyboard, use focus:
+    awful.key({ modkey }, ";", leaved.keys.focus),
+    -- or (to allow focusing containers as well)
+    awful.key({ modkey }, ";", leaved.keys.focus_container),
+    -- To minimize the container of the current client, use min_container:
+    awful.key({ modkey, "Shift" }, "n", leaved.keys.min_container),
+    -- TODO: Add the mouse actions from https://github.com/michaelbeaumont/awesome-leaved
+    
+        
+            
+                    -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     -- Viktor disabled the next one since since this is i3's keybinding for 'close window'
@@ -299,7 +333,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-
+    
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
@@ -336,6 +370,7 @@ clientkeys = awful.util.table.join(
             c.maximized_vertical   = not c.maximized_vertical
         end)
 )
+
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
