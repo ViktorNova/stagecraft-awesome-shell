@@ -27,7 +27,7 @@ require("eminent")
  --require("debian.menu")
 
 -- i3-style window layouts
-local leaved   = require "awesome-leaved"
+local leaved   = require ("awesome-leaved")
 local treesome = require("treesome")
 
 -- {{{ Error handling
@@ -58,17 +58,20 @@ end
 -- {{{ Variable definitions
 
 -- Themes define colours, icons, font and wallpapers.
--- beautiful.init("~/.config/awesome/themes/blind/arrow/theme.lua")
+ --beautiful.init(config.themePath                .. "/themeZilla.lua")
+-- Working themes: Holo, SciFi, 
+beautiful.init("~/.config/awesome/blind/arrow/themeHolo.lua")
+
+
+
 -- Load the theme
 config.load()
 config.themePath = awful.util.getdir("config") .. "/blind/" .. config.themeName .. "/"
 config.iconPath  = config.themePath       .. "Icon/"
- --beautiful.init(config.themePath                .. "/themeZilla.lua")
-beautiful.init(config.themePath                .. "/themeSciFi.lua")
 theme.layout_leaved = ("~/.config/awesome/awesome-leaved/leaved.png")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+terminal = "xterm"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -466,7 +469,7 @@ client.connect_signal("manage", function (c, startup)
         -- The title goes in the middle
         local middle_layout = wibox.layout.flex.horizontal()
         local title = awful.titlebar.widget.titlewidget(c)
-        title:set_align("center")
+        title:set_align("left")
         middle_layout:add(title)
         middle_layout:buttons(buttons)
 
