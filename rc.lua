@@ -6,8 +6,15 @@ local gears = require("gears")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
+
 -- Theme handling library
-local beautiful = require("beautiful")
+local beautiful  = require("beautiful")
+local blind      = require("blind")
+local theme = {}
+
+-- Registry module by Elv13
+local config     = require( "forgotten"   )
+
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
@@ -17,9 +24,10 @@ local menubar = require("menubar")
 require("eminent")
 
 -- Load Debian menu entries
-require("debian.menu")
+ --require("debian.menu")
 
 -- i3-style window layouts
+local leaved   = require "awesome-leaved"
 local treesome = require("treesome")
 
 -- {{{ Error handling
@@ -48,8 +56,16 @@ end
 -- }}}
 
 -- {{{ Variable definitions
+
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("~/.config/awesome/themes/blind/arrow/theme.lua")
+-- beautiful.init("~/.config/awesome/themes/blind/arrow/theme.lua")
+-- Load the theme
+config.load()
+config.themePath = awful.util.getdir("config") .. "/blind/" .. config.themeName .. "/"
+config.iconPath  = config.themePath       .. "Icon/"
+ --beautiful.init(config.themePath                .. "/themeZilla.lua")
+beautiful.init(config.themePath                .. "/themeSciFi.lua")
+theme.layout_leaved = ("~/.config/awesome/awesome-leaved/leaved.png")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -66,6 +82,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
+
+    leaved.layout.suit.tile.right,
+    leaved.layout.suit.tile.left,
+    leaved.layout.suit.tile.bottom,
+    leaved.layout.suit.tile.top,
     awful.layout.suit.floating,
     treesome,
     awful.layout.suit.tile,
@@ -108,11 +129,13 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
+-- Add and uncomment the next line to get a Debian menu (doesn't work on Arch, obviously)
+ --                                    { "Debian", debian.menu.Debian_menu.Debian },
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
-                        })
+
+                                                })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
