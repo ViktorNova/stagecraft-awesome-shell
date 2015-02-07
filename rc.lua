@@ -68,7 +68,7 @@ beautiful.init("~/.config/awesome/blind/arrow/themeHolo.lua")
 config.load()
 config.themePath = awful.util.getdir("config") .. "/blind/" .. config.themeName .. "/"
 config.iconPath  = config.themePath       .. "Icon/"
-theme.layout_leaved = "~/.config/awesome/awesome-leaved/leaved.png"
+beautiful.layout_leaved = os.getenv("HOME") .. "/.config/awesome/stagecraft/icons/leaved.png"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
