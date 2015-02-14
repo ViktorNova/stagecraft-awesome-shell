@@ -10,7 +10,7 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful  = require("beautiful")
 local blind      = require("blind")
-local theme = {}
+
 
 -- Registry module by Elv13
 local config     = require( "forgotten"   )
@@ -58,11 +58,10 @@ end
 -- {{{ Variable definitions
 
 -- Themes define colours, icons, font and wallpapers.
- --beautiful.init(config.themePath                .. "/themeZilla.lua")
+--beautiful.init(config.themePath                .. "/themeZilla.lua")
 -- Working themes: Holo, SciFi, 
-beautiful.init("~/.config/awesome/blind/arrow/themeHolo.lua")
-
-
+local theme = themeViktorNova
+beautiful.init("~/.config/awesome/blind/arrow/themeViktorNova.lua")
 
 -- Load the theme
 config.load()
@@ -86,12 +85,12 @@ modkey = "Mod4"
 local layouts =
 {
 
-    leaved.layout.suit.tile.right,
-    leaved.layout.suit.tile.left,
-    leaved.layout.suit.tile.bottom,
-    leaved.layout.suit.tile.top,
+--    leaved.layout.suit.tile.right,
+--    leaved.layout.suit.tile.left,
+--    leaved.layout.suit.tile.bottom,
+--    leaved.layout.suit.tile.top,
+--    treesome,
     awful.layout.suit.floating,
-    treesome,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -354,7 +353,11 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
+    awful.key({ modkey, "Control" }, "space",
+              function(c)
+              c.ontop = not c.ontop
+              awful.client.floating.toggle()
+              end),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
