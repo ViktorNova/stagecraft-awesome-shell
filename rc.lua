@@ -11,7 +11,6 @@ local wibox = require("wibox")
 local beautiful  = require("beautiful")
 local blind      = require("blind")
 
-
 -- Registry module by Elv13
 local config     = require( "forgotten"   )
 
@@ -65,7 +64,7 @@ beautiful.init("~/.config/awesome/blind/arrow/themeViktorNova.lua")
 
 -- Load the theme
 config.load()
-config.themePath = awful.util.getdir("config") .. "/blind/" .. config.themeName .. "/"
+config.themePath = awful.util.getdir("config") .. "/blind/arrow/"
 config.iconPath  = config.themePath       .. "Icon/"
 beautiful.layout_leaved = os.getenv("HOME") .. "/.config/awesome/stagecraft/icons/leaved.png"
 
@@ -118,7 +117,7 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ "1 SESSION ", "2 PLUGINS" , "3 BEATS ", "4 SEQ ", "5 ARP ", "6 - ", "7 RESEARCH ", "8 STAGECRAFT ", "9 WEB "}, s, layouts[1])
 end
 -- }}}
 
