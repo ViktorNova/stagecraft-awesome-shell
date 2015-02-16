@@ -13,3 +13,6 @@
 [submodule "forgotten"]
 	path = forgotten
 	url = https://github.com/Elv13/forgotten.git
+[submodule "blind"]
+	path = blind
+	url = https://github.com/ViktorNova/blind.git
