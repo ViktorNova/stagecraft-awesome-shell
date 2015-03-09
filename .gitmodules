@@ -17,5 +17,5 @@
 	path = blind
 	url = https://github.com/ViktorNova/blind.git
 [submodule "awesome-tyrannical"]
-	path = awesome-tyrannical
+	path = tyrannical
 	url = https://github.com/Elv13/tyrannical.git
