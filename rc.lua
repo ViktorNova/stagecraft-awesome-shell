@@ -22,6 +22,14 @@ local menubar = require("menubar")
 -- NOTE: This might be replacable by Tyrannical
 require("eminent")
 
+-- Load Tyrannical Dynamic tagging configuration system
+-- This is responsible for making sure apps launch on the 
+-- correct workspace and obey specific rules
+local tyrannical = require("tyrannical")
+-- Load user configuration for Tyrannical
+local apprules = require("app-rules")
+
+
 -- Load Debian menu entries
  --require("debian.menu")
 
@@ -114,12 +122,15 @@ end
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {}
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "1 SESSION ", "2 PLUGINS" , "3 BEATS ", "4 SEQ ", "5 ARP ", "6 - ", "7 RESEARCH ", "8 STAGECRAFT ", "9 WEB "}, s, layouts[1])
-end
--- }}}
+-- NOTE: Stagecraft OS uses the Tyrannical module to manage screen tags.
+-- Do not uncomment this section!! See ~/.config/awesome/app-rules.lua for window rules and tags configuration
+
+        -- tags = {}
+        -- for s = 1, screen.count() do
+            -- Each screen has its own tag table.
+        --    tags[s] = awful.tag({ "1 SESSION ", "2 PLUGINS" , "3 BEATS ", "4 SEQ ", "5 ARP ", "6 RESEARCH ", "7 STAGECRAFT ", "8 DEV ", "9 WEB "}, s, layouts[1])
+        -- end
+        -- }}}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
@@ -357,6 +368,7 @@ clientkeys = awful.util.table.join(
               c.ontop = not c.ontop
               awful.client.floating.toggle()
               end),
+    awful.key({ modkey, "Shift"   }, "s", function (c) c.sticky = not c.sticky end),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
@@ -430,6 +442,7 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
+-- NOTE: Stagecraft OS manages most of the client (specific window) rules through the Tyrannical module
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -439,9 +452,9 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
-    { rule = { class = "pinentry" },
+    { rule = { class = "Qmidiroute" },
+      properties = { floating = false } },
+    { rule = { class = "Qmidiroute" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
