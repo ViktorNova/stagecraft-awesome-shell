@@ -124,13 +124,14 @@ end
 -- Define a tag table which hold all screen tags.
 -- NOTE: Stagecraft OS uses the Tyrannical module to manage screen tags.
 -- Do not uncomment this section!! See ~/.config/awesome/app-rules.lua for window rules and tags configuration
+-- }}}
 
-        -- tags = {}
-        -- for s = 1, screen.count() do
-            -- Each screen has its own tag table.
-        --    tags[s] = awful.tag({ "1 SESSION ", "2 PLUGINS" , "3 BEATS ", "4 SEQ ", "5 ARP ", "6 RESEARCH ", "7 STAGECRAFT ", "8 DEV ", "9 WEB "}, s, layouts[1])
-        -- end
-        -- }}}
+
+-- tags = {}
+--    for s = 1, screen.count() do
+--       tags[s] = awful.tag({ "DERP 0", "DERP 000","DERP 000", "DERP 000", "DERP 4", "DERP 5", "6 RESEARCH ", "7 STAGECRAFT ", "8 DEV ", "9 WEB "}, s, layouts[1])
+--    end
+
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
@@ -442,26 +443,27 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
+-- See app-rules.lua
 -- NOTE: Stagecraft OS manages most of the client (specific window) rules through the Tyrannical module
-awful.rules.rules = {
-    -- All clients will match this rule.
-    { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
-                     keys = clientkeys,
-                     buttons = clientbuttons } },
-    { rule = { class = "Qmidiroute" },
-      properties = { floating = false } },
-    { rule = { class = "Qmidiroute" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
-}
+-- awful.rules.rules = {
+--    -- All clients will match this rule.
+--    { rule = { },
+--     properties = { border_width = beautiful.border_width,
+--                     border_color = beautiful.border_normal,
+--                     focus = awful.client.focus.filter,
+--                     raise = true,
+--                     keys = clientkeys,
+--                     buttons = clientbuttons } },
+--    { rule = { class = "Qmidiroute" },
+--      properties = { floating = false } },
+--    { rule = { class = "Qmidiroute" },
+--      properties = { floating = true } },
+--    { rule = { class = "gimp" },
+--      properties = { floating = true } },
+--    -- Set Firefox to always map on tags number 2 of screen 1.
+--    -- { rule = { class = "Firefox" },
+--    --   properties = { tag = tags[1][2] } },
+-- }
 -- }}}
 
 -- {{{ Signals
