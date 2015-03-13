@@ -39,12 +39,13 @@ tyrannical.tags = {
         volatile    = true,
       --icon        = "~net.png",                 -- Use this icon for the tag (uncomment with a real path)
         screen      = screen.count()>1 and 2 or 1,-- Setup on screen 2 if there is more than 1 screen, else on screen 1
-        layout      = awful.layout.suit.max,      -- Use the max layout
+        layout      = awful.layout.suit.tile,      -- Use the max layout
         class = {
             "Carla", 
             "jalv", 
             "jalv.gtk", 
-            "jalv.qt", 
+            "jalv.qt",
+            "Calf.gtk", 
             "Mod App",
             "Guitarix",
             "Rackarrack",
@@ -71,7 +72,7 @@ tyrannical.tags = {
         screen      = 1,
         clone_on    = 2, -- Create a single instance of this tag on screen 1, but also show it on screen 2
                          -- The tag can be used on both screen, but only one at once
-        layout      = awful.layout.suit.max                          ,
+        layout      = awful.layout.suit.tile                          ,
         class = { 
             "Los-2014", 
             "Qtractor", 
@@ -87,9 +88,9 @@ tyrannical.tags = {
         init        = false,
         exclusive   = true,
         volatile    = true,
-        layout      = awful.layout.suit.max,
+        layout      = awful.layout.suit.tile,
         instance    = {
-            "GLOBAL PLUGINS.carxp"
+            "GLOBAL PLUGINS - GLOBAL PLUGINS.carxp"
         } ,
         class       = {
             "Qmidiroute"
@@ -103,7 +104,7 @@ tyrannical.tags = {
         screen      = 1,
         clone_on    = 2, -- Create a single instance of this tag on screen 1, but also show it on screen 2
                          -- The tag can be used on both screen, but only one at once
-        layout      = awful.layout.suit.max                          ,
+        layout      = awful.layout.suit.tile                          ,
         instance    = {
             "lxqt-config"
         } ,
@@ -119,7 +120,7 @@ tyrannical.properties.intrusive = {
     "qterminal",
     "pcmanfm-qt", 
     "gtksu",
-    "xcalc",   "feh", "Gradient editor", "About KDE" , "Paste Special", "Background color"    ,
+    "xcalc",   "Google Chrome", "Chromium", "Qupzilla" , "Paste Special", "Background color"    ,
     "kcolorchooser" , "plasmoidviewer" , "Xephyr"    , "kruler"       , "plasmaengineexplorer",
 }
 
