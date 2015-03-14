@@ -493,12 +493,12 @@ client.connect_signal("manage", function (c, startup)
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
-                awful.button({ }, 1, function()
+                awful.button({ }, 3, function()
                     client.focus = c
                     c:raise()
                     awful.mouse.client.move(c)
                 end),
-                awful.button({ }, 3, function()
+                awful.button({ }, 1, function()
                     client.focus = c
                     c:raise()
                     awful.mouse.client.resize(c)
