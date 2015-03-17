@@ -20,7 +20,7 @@ local menubar = require("menubar")
 
 -- Load Eminent - dynamic tagging system and auto-hides empty tags.
 -- NOTE: This might be replacable by Tyrannical
-require("eminent")
+-- require("eminent")
 
 -- Load Tyrannical Dynamic tagging configuration system
 -- This is responsible for making sure apps launch on the 
@@ -482,16 +482,21 @@ client.connect_signal("manage", function (c, startup)
         -- i.e. put it at the end of others instead of setting it master.
         -- awful.client.setslave(c)
 
-        -- Put windows in a smart way, only if they does not set an initial position.
-        if not c.size_hints.user_position and not c.size_hints.program_position then
+        -- Windows always start on screen
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
-        end
     end
 
+    -- TO DO (Viktor) invert the move/resize behavior for floating windows
+    -- do this using the floating = "true" property
+    -- http://awesome.naquadah.org/wiki/Understanding_Rules#properties
+    -- http://awesome.naquadah.org/wiki/FAQ#How_to_prevent_floating_clients_opening_offscreen.3F
+    -- 
+    -- THEN, make it so titlebars only resize vertically
+    -- and add a rule for horizontal resizing with the window border, like i3
+
     local titlebars_enabled = true
-    if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-        -- buttons for the titlebar
+    if titlebars_enabled then
         local buttons = awful.util.table.join(
                 awful.button({ }, 3, function()
                     client.focus = c
