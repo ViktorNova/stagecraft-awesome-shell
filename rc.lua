@@ -18,10 +18,6 @@ local config     = require( "forgotten"   )
 local naughty = require("naughty")
 local menubar = require("menubar")
 
--- Load Eminent - dynamic tagging system and auto-hides empty tags.
--- NOTE: This might be replacable by Tyrannical
--- require("eminent")
-
 -- Load Tyrannical Dynamic tagging configuration system
 -- This is responsible for making sure apps launch on the 
 -- correct workspace and obey specific rules
@@ -162,10 +158,11 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mytextclock = awful.widget.textclock()
 
 -- Create a wibox for each screen and add it
-mywibox = {}
-mypromptbox = {}
-mylayoutbox = {}
-mytaglist = {}
+bar_wibox_top     = {}
+bar_wibox_bottom  = {}
+mypromptbox       = {}
+mylayoutbox       = {}
+mytaglist         = {}
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
@@ -229,27 +226,37 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    bar_wibox_top[s]          = awful.wibox({ position = "top", screen = s })
+    bar_wibox_bottom[s]   = awful.wibox({ position = "bottom", screen = s })
 
     -- Widgets that are aligned to the left
-    local left_layout = wibox.layout.fixed.horizontal()
+    local left_layout         = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
 
     -- Widgets that are aligned to the right
-    local right_layout = wibox.layout.fixed.horizontal()
+    local right_layout        = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
-    -- Now bring it all together (with the tasklist in the middle)
-    local layout = wibox.layout.align.horizontal()
-    layout:set_left(left_layout)
-    layout:set_middle(mytasklist[s])
-    layout:set_right(right_layout)
+    -- Now bring it all together:
+    --  TOP BAR:
+    local top_bar_layout      = wibox.layout.align.horizontal()
+        top_bar_layout:set_left(left_layout)
+        top_bar_layout:set_right(right_layout)
 
-    mywibox[s]:set_widget(layout)
+
+    -- BOTTOM BAR:
+    local bottom_bar_layout  = wibox.layout.align.horizontal()
+        bottom_bar_layout:set_middle(mytasklist[s])
+
+
+    -- Display the bars, now that they have been set up:
+    bar_wibox_top[s]:set_widget(top_bar_layout)
+    bar_wibox_bottom[s]:set_widget(bottom_bar_layout)
+    
 end
 -- }}}
 
