@@ -16,3 +16,7 @@
 [submodule "awesome-tyrannical"]
 	path = tyrannical
 	url = https://github.com/Elv13/tyrannical.git
+[submodule "blind"]
+	path = blind
+	url = https://github.com/ViktorNova/blind.git
+	branch = master
