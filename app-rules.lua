@@ -109,6 +109,7 @@ tyrannical.properties.intrusive = {
     "lxqt-runner", 
     "qterminal",
     "pcmanfm-qt", 
+    "Znotes",
     "gtksu",
     "gsu",
     "Google-chrome",
@@ -127,6 +128,7 @@ tyrannical.properties.intrusive = {
 
 -- Ignore the tiled layout for the matching clients
 tyrannical.properties.floating = {
+    "Znotes",
     "MPlayer", 
     "pinentry", 
     "ksnapshot", 
@@ -152,6 +154,7 @@ tyrannical.properties.floating = {
 -- Make the matching clients (by classes) on top of the default layout
 tyrannical.properties.ontop = {
     "LxQt Panel",
+    "Znotes",
     "Xephyr",
     "Yakuake",
     "ksnapshot",
