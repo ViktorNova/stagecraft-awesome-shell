@@ -13,15 +13,9 @@ local tyrannical = require("tyrannical")
 local awful = require("awful")
 local beautiful  = require("beautiful")
 
--- GLOBAL SETTINGS FOR ALL WORKSPACES AND CLIENTS
-tyrannical.settings.default_layout	= awful.layout.suit.tile.left
-tyrannical.settings.mwfact			= 0.66
-tyrannical.settings.group_children	= true 
-
 -- Setup some tags
 tyrannical.tags = {
-    {
-        name        = "  SESSION  ",              
+    {	name	= "  SESSION  ",
         init        = true,                   -- Load the tag on startup
         exclusive   = true,                   -- Refuse any other type of clients (by classes)
         volatile    = false,
@@ -32,8 +26,7 @@ tyrannical.tags = {
             "Non-Session-Manager"
         }
     } ,
-    {
-        name        = "  PLUGINS  ",
+    {	name	= "  PLUGINS  ",
         init        = false,
         exclusive   = true,
         volatile    = true,
@@ -51,8 +44,7 @@ tyrannical.tags = {
             "Rackarrack",
             "FKTK Load Sample"     }
     } ,
-    {
-        name = "  BEATS  ",
+    {	name 	= "  BEATS  ",
         init        = false,
         exclusive   = true,
         volatile    = true,
@@ -64,8 +56,7 @@ tyrannical.tags = {
             "drumkv1",
         }
     } ,
-    {
-        name = "  SEQ  ",
+    {	name 	= "  SEQ  ",
         init        = false,
         exclusive   = true,
         volatile    = true,
@@ -83,8 +74,7 @@ tyrannical.tags = {
             "Oomidi",
             "Rosegarden" }
     } ,
-    {
-        name        = "  GLOBAL  ",
+    {   name	= "  GLOBAL  ",
         init        = false,
         exclusive   = true,
         volatile    = true,
@@ -96,8 +86,7 @@ tyrannical.tags = {
             "Qmidiroute"
         } ,
     } ,
-    {
-        name = "  SYSTEM  ",
+    {   name	= "  SYSTEM  ",
         init        = false,
         exclusive   = true,
         volatile    = true,
@@ -116,25 +105,57 @@ tyrannical.tags = {
 
 -- Ignore the tag "exclusive" property for the following clients (matched by classes)
 tyrannical.properties.intrusive = {
+    "LxQt Panel",
     "lxqt-runner", 
     "qterminal",
     "pcmanfm-qt", 
     "gtksu",
-    "xcalc",   "Google Chrome", "Chromium", "Qupzilla" , "Paste Special", "Background color"    ,
-    "kcolorchooser" , "plasmoidviewer" , "Xephyr"    , "kruler"       , "plasmaengineexplorer",
+    "gsu",
+    "Google-chrome",
+    "Google-chrome-beta",
+    "Google-chrome-unstable",
+    "Chromium", 
+    "Qupzilla",
+    "Paste Special", 
+    "Background color"    ,
+    "kcolorchooser",
+    "plasmoidviewer",
+    "Xephyr",
+    "kruler",
+    "plasmaengineexplorer",
 }
 
 -- Ignore the tiled layout for the matching clients
 tyrannical.properties.floating = {
-    "MPlayer"      , "pinentry"        , "ksnapshot"  , "pinentry"     , "gtksu"          ,
-    "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
-    "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
-    "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer" 
+    "MPlayer", 
+    "pinentry", 
+    "ksnapshot", 
+    "pinentry", 
+    "gtksu",
+    "xine", 
+    "feh", 
+    "kmix", 
+    "kcalc", 
+    "xcalc",
+    "Yakuake", 
+    "Select Color$", 
+    "kruler", 
+    "kcolorchooser", 
+    "Paste Special",
+    "New Form", 
+    "Insert Picture", 
+    "kcharselect", 
+    "mythfrontend" , 
+    "plasmoidviewer" 
 }
 
 -- Make the matching clients (by classes) on top of the default layout
 tyrannical.properties.ontop = {
-    "Xephyr"       , "ksnapshot"       , "kruler"
+    "LxQt Panel",
+    "Xephyr",
+    "Yakuake",
+    "ksnapshot",
+    "kruler"
 }
 
 -- Force the matching clients (by classes) to be centered on the screen on init
@@ -143,7 +164,13 @@ tyrannical.properties.centered = {
 }
 
 -- Do not honor size hints request for those classes
-tyrannical.properties.size_hints_honor = { xterm = false, URxvt = false, aterm = false, sauer_client = false, mythfrontend  = false}
+tyrannical.properties.size_hints_honor = { 
+    xterm		= false, 
+    URxvt		= false, 
+    aterm		= false, 
+    sauer_client	= false, 
+    mythfrontend	= false
+}
 
 
 -- {{{ Wallpaper
