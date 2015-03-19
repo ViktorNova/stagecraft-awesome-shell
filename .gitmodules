@@ -1,21 +1,27 @@
 [submodule "blingbling"]
 	path = blingbling
 	url = https://github.com/cedlemo/blingbling.git
+	branch = master
 [submodule "radical"]
 	path = radical
 	url = https://github.com/Elv13/radical.git
+	branch = master
 [submodule "awesome-leaved"]
 	path = awesome-leaved
 	url = https://github.com/michaelbeaumont/awesome-leaved.git
+	branch = master
 [submodule "treesome"]
 	path = treesome
 	url = https://github.com/RobSis/treesome.git
+	branch = master
 [submodule "forgotten"]
 	path = forgotten
 	url = https://github.com/Elv13/forgotten.git
+	branch = master
 [submodule "awesome-tyrannical"]
 	path = tyrannical
 	url = https://github.com/Elv13/tyrannical.git
+	branch = master
 [submodule "blind"]
 	path = blind
 	url = https://github.com/ViktorNova/blind.git
