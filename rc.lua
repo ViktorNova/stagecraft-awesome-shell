@@ -436,8 +436,17 @@ for i = 1, 9 do
                               awful.client.toggletag(tag)
                           end
                       end
-                  end))
+                  end),
+	-- Rename tag with Mod + F2
+	awful.key({ modkey, }, "F2",    function ()
+                  awful.prompt.run({ prompt = "Rename workspace: ", text = awful.tag.selected().name, },
+                  mypromptbox[mouse.screen].widget,
+                  function (s)
+                      awful.tag.selected().name = s
+                  end)
+            end))	
 end
+
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
