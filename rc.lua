@@ -444,7 +444,7 @@ for i = 1, 9 do
                   function (s)
                       awful.tag.selected().name = s
                   end)
-            end))	
+            end))
 end
 
 
@@ -461,15 +461,15 @@ root.keys(globalkeys)
 -- Rules to apply to new clients (through the "manage" signal).
 -- See app-rules.lua
 -- NOTE: Stagecraft OS manages most of the client (specific window) rules through the Tyrannical module
--- awful.rules.rules = {
+awful.rules.rules = {
 --    -- All clients will match this rule.
---    { rule = { },
---     properties = { border_width = beautiful.border_width,
---                     border_color = beautiful.border_normal,
---                     focus = awful.client.focus.filter,
---                     raise = true,
---                     keys = clientkeys,
---                     buttons = clientbuttons } },
+    { rule = { },
+     properties = { border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal,
+                     focus = awful.client.focus.filter,
+                     raise = true,
+                     keys = clientkeys,
+                     buttons = clientbuttons } }
 --    { rule = { class = "Qmidiroute" },
 --      properties = { floating = false } },
 --    { rule = { class = "Qmidiroute" },
@@ -479,7 +479,7 @@ root.keys(globalkeys)
 --    -- Set Firefox to always map on tags number 2 of screen 1.
 --    -- { rule = { class = "Firefox" },
 --    --   properties = { tag = tags[1][2] } },
--- }
+}
 -- }}}
 
 -- {{{ Signals
