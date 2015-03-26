@@ -32,7 +32,7 @@ tyrannical.tags = {
         volatile    = true,
       --icon        = "~net.png",                 -- Use this icon for the tag (uncomment with a real path)
         screen      = screen.count()>1 and 2 or 1,-- Setup on screen 2 if there is more than 1 screen, else on screen 1
-        layout      = awful.layout.suit.tile,      -- Use the max layout
+        layout      = awful.layout.suit.tile,      -- Use the tile layout
         class = {
             "Carla", 
             "jalv", 
@@ -42,7 +42,7 @@ tyrannical.tags = {
             "Mod App",
             "Guitarix",
             "Rackarrack",
-            "FKTK Load Sample"     }
+            "FLTK Load Sample"     }
     } ,
     {	name 	= "  BEATS  ",
         init        = false,
@@ -101,6 +101,29 @@ tyrannical.tags = {
             "lxqt-config", 
             "Cadence" }
     } ,
+    
+    -- These workspaces are not necessarily Stagecraft related,
+    -- but Viktor uses them for Stagecraft development, so that's why they are here
+    
+  {	name	= "  DEV  ",
+        init        = false,
+        exclusive   = false,
+        volatile    = true,
+      --icon        = "~net.png",                 -- Use this icon for the tag (uncomment with a real path)
+        screen      = 1,
+        layout      = awful.layout.suit.tile,      -- Use the tile layout
+        class = {
+            "Kdevelop", 
+            "Kate", 
+            "Tea", 
+            "juffed",
+            "jetbrains-pycharm", 
+            "jetbrains-pychar", 	    
+            "sun-awt-X11-XFramePeer", -- This will probably match lots of Java windows other than PyCharm.. maybe it's ok
+            "Gedit",
+            "geany"
+	}
+    },
 }
 
 -- Ignore the tag "exclusive" property for the following clients (matched by classes)
@@ -110,6 +133,7 @@ tyrannical.properties.intrusive = {
     "qterminal",
     "pcmanfm-qt", 
     "Znotes",
+    "Xfce4-notes",
     "gtksu",
     "gsu",
     "Google-chrome",
@@ -129,6 +153,7 @@ tyrannical.properties.intrusive = {
 -- Ignore the tiled layout for the matching clients
 tyrannical.properties.floating = {
     "Znotes",
+    "Xfce4-notes",
     "MPlayer", 
     "pinentry", 
     "ksnapshot", 
@@ -153,8 +178,9 @@ tyrannical.properties.floating = {
 
 -- Make the matching clients (by classes) on top of the default layout
 tyrannical.properties.ontop = {
-    "LxQt Panel",
     "Znotes",
+    "Xfce4-notes",
+    --"LxQt Panel",
     "Xephyr",
     "Yakuake",
     "ksnapshot",
@@ -163,7 +189,9 @@ tyrannical.properties.ontop = {
 
 -- Force the matching clients (by classes) to be centered on the screen on init
 tyrannical.properties.centered = {
-    "kcalc"
+    "Znotes",
+    "Xfce4-notes",
+    "kcalc"    
 }
 
 -- Do not honor size hints request for those classes
