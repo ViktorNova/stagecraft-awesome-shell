@@ -88,11 +88,11 @@ modkey = "Mod4"
 local layouts =
 {
 
---    leaved.layout.suit.tile.right,
---    leaved.layout.suit.tile.left,
---    leaved.layout.suit.tile.bottom,
---    leaved.layout.suit.tile.top,
---    treesome,
+    leaved.layout.suit.tile.right,
+    leaved.layout.suit.tile.left,
+    leaved.layout.suit.tile.bottom,
+    leaved.layout.suit.tile.top,
+    treesome,
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
