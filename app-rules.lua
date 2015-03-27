@@ -128,7 +128,7 @@ tyrannical.tags = {
 
 -- Ignore the tag "exclusive" property for the following clients (matched by classes)
 tyrannical.properties.intrusive = {
-    "LxQt Panel",
+    "lxqt-panel",
     "lxqt-runner", 
     "qterminal",
     "pcmanfm-qt", 
@@ -137,6 +137,7 @@ tyrannical.properties.intrusive = {
     "gtksu",
     "gsu",
     "Google-chrome",
+    "Google-chrome-stable",
     "Google-chrome-beta",
     "Google-chrome-unstable",
     "Chromium", 
@@ -180,9 +181,10 @@ tyrannical.properties.floating = {
 tyrannical.properties.ontop = {
     "Znotes",
     "Xfce4-notes",
-    --"LxQt Panel",
+    "lxqt-panel",
     "Xephyr",
     "Yakuake",
+    "qterminal",
     "ksnapshot",
     "kruler"
 }
