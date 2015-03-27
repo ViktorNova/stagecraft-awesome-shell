@@ -90,7 +90,7 @@ local layouts =
 
     leaved.layout.suit.tile.right,
     leaved.layout.suit.tile.left,
-    leaved.layout.suit.tile.bottom,
+--    leaved.layout.suit.tile.bottom,
     leaved.layout.suit.tile.top,
     treesome,
     awful.layout.suit.floating,
@@ -102,9 +102,9 @@ local layouts =
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+--    awful.layout.suit.max,
+    awful.layout.suit.max.fullscreen
+--    awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -477,9 +477,9 @@ awful.rules.rules = {
 --    { rule = { class = "gimp" },
 --      properties = { floating = true } },
 --    -- Set Firefox to always map on tags number 2 of screen 1.
---    -- { rule = { class = "Firefox" },
---    --   properties = { tag = tags[1][2] } },
-}
+--    { rule = { class = "Google-chrome-stable" },
+--        properties = { tag = tags[1][2] } }   
+                    }
 -- }}}
 
 -- {{{ Signals
@@ -493,7 +493,7 @@ client.connect_signal("manage", function (c, startup)
         end
     end)
 
-    if not startup then
+--    if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
         -- awful.client.setslave(c)
@@ -501,7 +501,7 @@ client.connect_signal("manage", function (c, startup)
         -- Windows always start on screen
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
-    end
+--    end
 
     -- TO DO (Viktor) invert the move/resize behavior for floating windows
     -- do this using the floating = "true" property
