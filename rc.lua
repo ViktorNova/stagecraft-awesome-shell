@@ -63,8 +63,8 @@ end
 -- Themes define colours, icons, font and wallpapers.
 --beautiful.init(config.themePath                .. "/themeZilla.lua")
 -- Working themes: Holo, SciFi, 
-local theme = themeViktorNova
-beautiful.init("~/.config/awesome/blind/arrow/themeViktorNova.lua")
+local theme = themeStagecraft
+beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
 
 -- Load the theme
 config.load()
