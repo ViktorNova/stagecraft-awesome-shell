@@ -26,3 +26,7 @@
 	path = blind
 	url = https://github.com/ViktorNova/blind.git
 	branch = master
+[submodule "pro"]
+	path = pro
+	url = https://github.com/ViktorNova/pro.git
+	branch = master
