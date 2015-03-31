@@ -118,6 +118,7 @@ tyrannical.tags = {
             "Tea", 
             "juffed",
             "jetbrains-pycharm", 
+            "jetbrains-pycharm-ce",
             "jetbrains-pychar", 	    
             "sun-awt-X11-XFramePeer", -- This will probably match lots of Java windows other than PyCharm.. maybe it's ok
             "Gedit",
@@ -155,10 +156,10 @@ tyrannical.properties.intrusive = {
 tyrannical.properties.floating = {
     "Znotes",
     "Xfce4-notes",
+    "lxqt-runner",
     "MPlayer", 
     "pinentry", 
     "ksnapshot", 
-    "pinentry", 
     "gtksu",
     "xine", 
     "feh", 
@@ -182,7 +183,7 @@ tyrannical.properties.ontop = {
     "Znotes",
     "Xfce4-notes",
     "lxqt-panel",
-    "Xephyr",
+    "lxqt-runner",
     "Yakuake",
     "qterminal",
     "ksnapshot",
