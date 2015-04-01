@@ -13,6 +13,9 @@ local tyrannical = require("tyrannical")
 local awful = require("awful")
 local beautiful  = require("beautiful")
 
+-- Default layout for clients with no rules
+tyrannical.settings.default_layout = awful.layout.suit.tile
+
 -- Setup some tags
 tyrannical.tags = {
     {	name	= "  SESSION  ",
@@ -165,8 +168,7 @@ tyrannical.properties.floating = {
     "feh", 
     "kmix", 
     "kcalc", 
-    "xcalc",
-    "Yakuake", 
+    "xcalc","Yakuake", 
     "Select Color$", 
     "kruler", 
     "kcolorchooser", 
