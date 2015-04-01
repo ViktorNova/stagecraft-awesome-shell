@@ -66,9 +66,9 @@ end
 --beautiful.init(config.themePath                .. "/themeZilla.lua")
 -- Working themes: Holo, SciFi, 
 local theme = themeStagecraft
+beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft-SciFiGrad.lua")
+--beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft-Zilla.lua")
 --beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
---beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
-beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
 
 -- Load the theme
 config.load()
