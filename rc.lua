@@ -3,6 +3,8 @@ local radical = require("radical")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 local gears = require("gears")
+local gears = require("gears")
+--local color  = require( "gears.color" )
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -64,6 +66,8 @@ end
 --beautiful.init(config.themePath                .. "/themeZilla.lua")
 -- Working themes: Holo, SciFi, 
 local theme = themeStagecraft
+--beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
+--beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
 beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
 
 -- Load the theme
@@ -87,13 +91,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
-
-    leaved.layout.suit.tile.right,
-    leaved.layout.suit.tile.left,
+--    leaved.layout.suit.tile.right,
+--    leaved.layout.suit.tile.left,
 --    leaved.layout.suit.tile.bottom,
-    leaved.layout.suit.tile.top,
-    treesome,
-    awful.layout.suit.floating,
+--    leaved.layout.suit.tile.top,
+--    treesome,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -102,8 +104,9 @@ local layouts =
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.floating,
 --    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen
+--    awful.layout.suit.max.fullscreen
 --    awful.layout.suit.magnifier
 }
 -- }}}
