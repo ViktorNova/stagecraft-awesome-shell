@@ -66,9 +66,10 @@ end
 --beautiful.init(config.themePath                .. "/themeZilla.lua")
 -- Working themes: Holo, SciFi, 
 local theme = themeStagecraft
-beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft-SciFiGrad.lua")
+--beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft-SciFi.lua")
+--beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft-SciFiGrad.lua")
 --beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft-Zilla.lua")
---beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
+beautiful.init("~/.config/awesome/blind/arrow/themeStagecraft.lua")
 
 -- Load the theme
 config.load()
@@ -339,7 +340,7 @@ globalkeys = awful.util.table.join(
             
                     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
+    awful.key({ modkey, "Shift" }, "r", awesome.restart),
     -- Viktor disabled the next one since since this is i3's keybinding for 'close window'
     -- and he got tired of accidentally killing X all the time by accident.
     -- Uncomment it if you're an awesome wizard
