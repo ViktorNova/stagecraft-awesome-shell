@@ -1,3 +1,6 @@
+-- Stagecraft OS Desktop Environment
+-- By Viktor Nova
+
 -- Standard awesome library
 local radical = require("radical")
 local awful = require("awful")
@@ -450,13 +453,16 @@ for i = 1, 9 do
 end
 
 
+----------------- Moving / Resizing windows while holding the mod key --------------------
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 3, awful.mouse.client.resize),
-    awful.button({ modkey }, 1, 
-        function (c) 
-            c.maximized_horizontal = false
-            c.maximized_vertical   = false          
+    awful.button({ modkey }, 1,
+        function (c)
+             c.maximized_horizontal = false -- Un-maximize any window when
+             c.maximized_vertical   = false -- it's moved with the Mod key.
+             c.maximized            = false
+             c.fullscreen           = false
             awful.mouse.client.move(c)
         end)
         )
@@ -476,14 +482,17 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
+                     maximized_vertical   = false,
+                     maximized_horizontal = false,
+                     maximized            = false,
                      keys = clientkeys,
-                     buttons = clientbuttons } }
+                     buttons = clientbuttons } },
 --    { rule = { class = "Qmidiroute" },
 --      properties = { floating = false } },
 --    { rule = { class = "Qmidiroute" },
 --      properties = { floating = true } },
---    { rule = { class = "gimp" },
---      properties = { floating = true } },
+    { rule = { floating = true },
+      properties = { ontop = true } }
 --    -- Set Firefox to always map on tags number 2 of screen 1.
 --    { rule = { class = "Google-chrome-stable" },
 --        properties = { tag = tags[1][2] } }   
@@ -515,7 +524,10 @@ client.connect_signal("manage", function (c, startup)
     -- do this using the floating = "true" property
     -- http://awesome.naquadah.org/wiki/Understanding_Rules#properties
     -- http://awesome.naquadah.org/wiki/FAQ#How_to_prevent_floating_clients_opening_offscreen.3F
-    -- 
+    --
+    -- "if titlebars_enabled and c.floating = tue (or whatever), then do this (below)
+    --  else, do the same thing, only with the mouse buttons reversed"
+
     -- THEN, make it so titlebars only resize vertically
     -- and add a rule for horizontal resizing with the window border, like i3
 
@@ -525,11 +537,13 @@ client.connect_signal("manage", function (c, startup)
                 awful.button({ }, 3, function()
                     client.focus = c
                     c:raise()
+                    c.maximized = false
                     awful.mouse.client.move(c)
                 end),
                 awful.button({ }, 1, function()
                     client.focus = c
                     c:raise()
+                    c.maximized = false
                     awful.mouse.client.resize(c)
                 end)
                 )
