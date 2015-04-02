@@ -1,5 +1,7 @@
 -- APP RULES
--- This is responsible for making sure apps launch on the 
+-- Stagecraft OS
+
+-- This is responsible for making sure apps launch on the
 -- correct workspace and obey specific rules. Using this file,
 -- you can make certain apps launch minimized, for instance, or
 -- cause a normally tiled window to be floating, always on top, etc,
@@ -8,6 +10,11 @@
 
 -- For a complete guide covering this powerful module and it's capibilities, 
 -- See https://github.com/Elv13/tyrannical
+
+
+-- TO DO: make pcmfm-qt desktop show up on all desktops,
+-- or find an awesome rule to make "desktop" type windows be sticky
+
 
 local tyrannical = require("tyrannical")
 local awful = require("awful")
@@ -140,19 +147,23 @@ tyrannical.properties.intrusive = {
     "Xfce4-notes",
     "gtksu",
     "gsu",
-    "Google-chrome",
-    "Google-chrome-stable",
-    "Google-chrome-beta",
-    "Google-chrome-unstable",
-    "Chromium", 
-    "Qupzilla",
-    "Paste Special", 
+--    "Google-chrome",
+--    "Google-chrome-stable",
+--    "Google-chrome-beta",
+--    "Google-chrome-unstable",
+--    "Chromium",
+--    "Qupzilla",
+    "Lightscreen",
+    "Copyq",
+    "Slickpicker",
+    "Qlogout",
+    "Paste Special",
     "Background color"    ,
     "kcolorchooser",
     "plasmoidviewer",
     "Xephyr",
     "kruler",
-    "plasmaengineexplorer",
+    "plasmaengineexplorer"
 }
 
 -- Ignore the tiled layout for the matching clients
@@ -165,7 +176,11 @@ tyrannical.properties.floating = {
     "ksnapshot", 
     "gtksu",
     "xine", 
-    "feh", 
+    "feh",
+    "Lightscreen",
+    "Copyq",
+    "Slickpicker",
+    "Qlogout",
     "kmix", 
     "kcalc", 
     "xcalc","Yakuake", 
@@ -189,6 +204,10 @@ tyrannical.properties.ontop = {
     "Yakuake",
     "qterminal",
     "ksnapshot",
+    "Lightscreen",
+    "Copyq",
+    "Slickpicker",
+    "Qlogout",
     "kruler"
 }
 
