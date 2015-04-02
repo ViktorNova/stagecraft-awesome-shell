@@ -126,12 +126,10 @@ end
 -- Do not uncomment this section!! See ~/.config/awesome/app-rules.lua for window rules and tags configuration
 -- }}}
 
-
 -- tags = {}
 --    for s = 1, screen.count() do
 --       tags[s] = awful.tag({ "DERP 0", "DERP 000","DERP 000", "DERP 000", "DERP 4", "DERP 5", "6 RESEARCH ", "7 STAGECRAFT ", "8 DEV ", "9 WEB "}, s, layouts[1])
 --    end
-
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
