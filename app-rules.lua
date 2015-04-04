@@ -135,6 +135,20 @@ tyrannical.tags = {
             "geany"
 	}
     },
+
+  {	name	= " REMOTE ",
+        init        = false,
+        exclusive   = false,
+        volatile    = true,
+      --icon        = "~net.png",                 -- Use this icon for the tag (uncomment with a real path)
+        screen      = 1,
+        layout      = awful.layout.suit.tile,      -- Use the tile layout
+        class = {
+            "X2goclient",
+            "X2goagent",
+            "Nxplayer.bin"
+	}
+    },
 }
 
 -- Ignore the tag "exclusive" property for the following clients (matched by classes)
