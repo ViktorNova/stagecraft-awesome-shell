@@ -536,17 +536,35 @@ client.connect_signal("manage", function (c, startup)
         local buttons = awful.util.table.join(
                 awful.button({ }, 3, function()
                     client.focus = c
+                    cfloat = awful.client.floating.get(c)
                     c:raise()
                     c.maximized = false
-                    awful.mouse.client.move(c)
+                        if cfloat == true then
+                            awful.mouse.client.resize(c)
+                        else
+                            awful.mouse.client.move(c)
+                        end
+                    c.maximized = false
                 end),
                 awful.button({ }, 1, function()
                     client.focus = c
+                    cfloat = awful.client.floating.get(c)-- Swap mouse behavior if client is floating
                     c:raise()
+                        if cfloat == true then
+                            awful.mouse.client.move(c)
+                        else
+                            awful.mouse.client.resize(c)
+                        end
                     c.maximized = false
-                    awful.mouse.client.resize(c)
                 end)
                 )
+        -- Attempt to resize with borders
+--    local borders = awful.util.table.join(
+--                beautiful.border({ }, 1, function()
+--                    client.focus = c
+--                   awful.mouse.client.resize(c)
+--                   end)
+--                )
 
         -- Widgets that are aligned to the left
         local left_layout = wibox.layout.fixed.horizontal()
