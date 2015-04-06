@@ -512,15 +512,14 @@ client.connect_signal("manage", function (c, startup)
         end
     end)
     
--- All floating windows are set to be on top
-    client.connect_signal("property::floating", function(c) 
+-- All floating windows are on top
+client.connect_signal("property::floating", function(c)
+     if awful.client.floating.get(c) then
        c.ontop = true
-    end)   
-    
--- Don't allow tiled windows to be on top
-    client.connect_signal("property::floating", function(c) 
-       c.ontop = true
-    end)  
+     else
+       c.ontop = false
+     end
+end)   
     
     
     
