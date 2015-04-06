@@ -493,6 +493,8 @@ awful.rules.rules = {
 --      properties = { floating = true } },
     { rule = { floating = true },
       properties = { ontop = true } }
+      
+      
 --    -- Set Firefox to always map on tags number 2 of screen 1.
 --    { rule = { class = "Google-chrome-stable" },
 --        properties = { tag = tags[1][2] } }   
@@ -509,27 +511,29 @@ client.connect_signal("manage", function (c, startup)
             client.focus = c
         end
     end)
+    
+-- All floating windows are set to be on top
+    client.connect_signal("property::floating", function(c) 
+       c.ontop = true
+    end)   
+    
+-- Don't allow tiled windows to be on top
+    client.connect_signal("property::floating", function(c) 
+       c.ontop = true
+    end)  
+    
+    
+    
 
---    if not startup then
+    if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
-        -- awful.client.setslave(c)
+        awful.client.setslave(c)
 
         -- Windows always start on screen
-            awful.placement.no_overlap(c)
-            awful.placement.no_offscreen(c)
---    end
-
-    -- TO DO (Viktor) invert the move/resize behavior for floating windows
-    -- do this using the floating = "true" property
-    -- http://awesome.naquadah.org/wiki/Understanding_Rules#properties
-    -- http://awesome.naquadah.org/wiki/FAQ#How_to_prevent_floating_clients_opening_offscreen.3F
-    --
-    -- "if titlebars_enabled and c.floating = tue (or whatever), then do this (below)
-    --  else, do the same thing, only with the mouse buttons reversed"
-
-    -- THEN, make it so titlebars only resize vertically
-    -- and add a rule for horizontal resizing with the window border, like i3
+        awful.placement.no_overlap(c)
+        awful.placement.no_offscreen(c)
+    end
 
     local titlebars_enabled = true
     if titlebars_enabled then
@@ -539,8 +543,8 @@ client.connect_signal("manage", function (c, startup)
                     cfloat = awful.client.floating.get(c)
                     c:raise()
                     c.maximized = false
-                        if cfloat == true then
-                            awful.mouse.client.resize(c)
+                        if cfloat == true then      
+                            awful.mouse.client.resize(c)  
                         else
                             awful.mouse.client.move(c)
                         end
