@@ -513,10 +513,10 @@ client.connect_signal("manage", function (c, startup)
     end)
     
 -- All floating windows are on top
-client.connect_signal("property::floating", function(c)
-     if awful.client.floating.get(c) then
+client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed
+     if awful.client.floating.get(c) then                -- Set client on top if floating is being activated
        c.ontop = true
-     else
+     else                                                -- Set client not on top if being floated
        c.ontop = false
      end
 end)   
@@ -551,9 +551,9 @@ end)
                 end),
                 awful.button({ }, 1, function()
                     client.focus = c
-                    cfloat = awful.client.floating.get(c)-- Swap mouse behavior if client is floating
+                    cfloat = awful.client.floating.get(c) -- Swap mouse behavior if client is floating
                     c:raise()
-                        if cfloat == true then
+                        if cfloat == true or awful.layout.get(c.screen) == awful.layout.suit.floating then
                             awful.mouse.client.move(c)
                         else
                             awful.mouse.client.resize(c)
