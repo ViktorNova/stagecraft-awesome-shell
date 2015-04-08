@@ -551,7 +551,7 @@ end)
                 end),
                 awful.button({ }, 1, function()
                     client.focus = c
-                    cfloat = awful.client.floating.get(c) -- Swap mouse behavior if client is floating
+                    cfloat = awful.client.floating.get(c) -- Swap mouse behavior if client is floating or we are in the floating layout
                     c:raise()
                         if cfloat == true or awful.layout.get(c.screen) == awful.layout.suit.floating then
                             awful.mouse.client.move(c)
