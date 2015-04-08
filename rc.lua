@@ -493,8 +493,9 @@ awful.rules.rules = {
                      maximized            = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
---  { rule = { class = "Qmidiroute" },
---  properties = { floating = true } },
+                     
+--  { rule = { visible = "false" },
+--  properties = { minimized = true } },
 
 
 
@@ -518,7 +519,7 @@ client.connect_signal("manage", function (c, startup)
 -- The idea is that any window somehow hidden from view is gets minimized so we can see a button for it on the taskbar
 -- DOES NOT WORK YET
 --    client.connect_signal("property::visible", function(c)   -- Trigger this when any client's visibility changes
---         if not awful.client.isvisible(c) then               -- Match if the client is invisible 
+--         if awful.client.isvisible() ~= "true" then               -- Match if the client is invisible 
 --           c.minimized = true
 --         else
 --         end
