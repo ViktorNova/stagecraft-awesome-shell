@@ -476,7 +476,7 @@ root.keys(globalkeys)
 
 -- NOTE:  Stagecraft OS manages most of the client rules (rules that match specific windows)
 --        through the Tyrannical module, as opposed to the standard Awesome way
---        (which would be to add rules in this section)
+--        (which would normally be to add rules in this section)
 --
 --        Unless you have a special case, you should add your app client rules in app-rules.lua, and not here
 -- 
@@ -496,33 +496,50 @@ awful.rules.rules = {
 --  { rule = { class = "Qmidiroute" },
 --  properties = { floating = true } },
 
+
+
     { rule = { type = "dialog" },                            -- Explicitely set all dialog windows as floating,
       properties = { floating = true } }                     -- so our other floating rules are applied to them
 
 }   -- }}}  END OF RULES SECTION
 --          Further customization can be added in the SIGNALS section below
 
+
+
+
+
+
+
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     
--- All floating windows are on top
-    client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed
-         if awful.client.floating.get(c) then                -- Set client on top if floating is being activated. 
-           c.ontop = true                                    -- Dialog windows are set explicitely as floating in the rule above, so they are also included in this rule
-         else                                                -- Set client not on top if being floated
-           c.ontop = false
-         end
-    end)   
+-- All invisible clients get minimized
+-- The idea is that any window somehow hidden from view is gets minimized so we can see a button for it on the taskbar
+-- DOES NOT WORK YET
+--    client.connect_signal("property::visible", function(c)   -- Trigger this when any client's visibility changes
+--         if not awful.client.isvisible(c) then               -- Match if the client is invisible 
+--           c.minimized = true
+--         else
+--         end
+--    end)   
     
     -- Enable sloppy focus
-    c:connect_signal("mouse::enter", function(c)
+    client.connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
             and awful.client.focus.filter(c) then
             client.focus = c
         end
     end)    
-    
+
+-- All floating windows are on top
+    client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed. (Dialog windows are set explicitely as floating in the rule above, so they are also included in this rule)
+         if awful.client.floating.get(c) then                -- Set client on top if floating is being activated. 
+           c.ontop = true                                    
+         else                                                
+           c.ontop = false                                   -- Set client not on top if not floated, or when being "un-floated"
+         end
+    end)   
 
     if not startup then
         -- Set the windows at the slave,
