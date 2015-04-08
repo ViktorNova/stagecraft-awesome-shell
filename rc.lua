@@ -552,6 +552,12 @@ client.connect_signal("manage", function (c, startup)
         awful.placement.no_offscreen(c)
     end
 
+-- Maximized clients get no border
+    client.connect_signal("property::maximized", function(c) 
+        c.border_width = c.maximized and 0 or beautiful.border_width
+    end)
+    
+    
     local titlebars_enabled = true
     if titlebars_enabled  and (c.type == "normal" or c.type == "dialog") then
         local buttons = awful.util.table.join(
