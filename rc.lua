@@ -471,14 +471,20 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 
--- {{{ Rules
--- Rules to apply to new clients (through the "manage" signal).
--- See app-rules.lua
--- NOTE: Stagecraft OS manages most of the client (specific window) rules through the Tyrannical module
+-- {{{    RULES
+--        Rules to apply to new clients (through the "manage" signal).
+
+-- NOTE:  Stagecraft OS manages most of the client rules (rules that match specific windows)
+--        through the Tyrannical module, as opposed to the standard Awesome way
+--        (which would be to add rules in this section)
+--
+--        Unless you have a special case, you should add your app client rules in app-rules.lua, and not here
+-- 
+
 awful.rules.rules = {
 --    -- All clients will match this rule.
     { rule = { },
-     properties = { border_width = beautiful.border_width,
+      properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
@@ -487,41 +493,35 @@ awful.rules.rules = {
                      maximized            = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
---    { rule = { class = "Qmidiroute" },
---      properties = { floating = false } },
---    { rule = { class = "Qmidiroute" },
---      properties = { floating = true } },
-    { rule = { floating = true },
-      properties = { ontop = true } }
-      
-      
---    -- Set Firefox to always map on tags number 2 of screen 1.
---    { rule = { class = "Google-chrome-stable" },
---        properties = { tag = tags[1][2] } }   
-                    }
--- }}}
+--  { rule = { class = "Qmidiroute" },
+--  properties = { floating = true } },
+
+    { rule = { type = "dialog" },                            -- Explicitely set all dialog windows as floating,
+      properties = { floating = true } }                     -- so our other floating rules are applied to them
+
+}   -- }}}  END OF RULES SECTION
+--          Further customization can be added in the SIGNALS section below
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
+    
+-- All floating windows are on top
+    client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed
+         if awful.client.floating.get(c) then                -- Set client on top if floating is being activated. 
+           c.ontop = true                                    -- Dialog windows are set explicitely as floating in the rule above, so they are also included in this rule
+         else                                                -- Set client not on top if being floated
+           c.ontop = false
+         end
+    end)   
+    
     -- Enable sloppy focus
     c:connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
             and awful.client.focus.filter(c) then
             client.focus = c
         end
-    end)
-    
--- All floating windows are on top
-client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed
-     if awful.client.floating.get(c) then                -- Set client on top if floating is being activated
-       c.ontop = true
-     else                                                -- Set client not on top if being floated
-       c.ontop = false
-     end
-end)   
-    
-    
+    end)    
     
 
     if not startup then
@@ -535,7 +535,7 @@ end)
     end
 
     local titlebars_enabled = true
-    if titlebars_enabled then
+    if titlebars_enabled  and (c.type == "normal" or c.type == "dialog") then
         local buttons = awful.util.table.join(
                 awful.button({ }, 3, function()
                     client.focus = c
