@@ -1,5 +1,9 @@
 -- Stagecraft OS Theme
--- Based on Blind "theme.lua" by Elv13
+
+local awful     = require("awful")
+awful.util      = require("awful.util")
+config          = awful.util.getdir("config")
+theme_path      = config .. "/stagecraft-os-theme/"
 
 
 -- {{{ Main
@@ -37,16 +41,64 @@ theme.fg_urgent      = "#FF7777"
 
 theme.bg_systray     = theme.bg_normal
 
---theme.border_width  = "1"
---theme.border_normal = "#555555"
---theme.border_focus  = "#535d6c"
---theme.border_marked = "#91231c"
+
+-- WINDOW BORDERS
 
 theme.border_width   = "0"
 theme.border_width2  = "2"
 theme.border_normal  = "#000000"
 theme.border_focus   = "#00ffff"
 theme.border_marked  = "#ffff00"
+
+theme.border_color_inactive = "#00000025" -- Button border  (ALL windows)
+theme.border_color_active   = "#00000050" -- Pressed button border (ALL windows), close button border (inactive window)
+theme.border_color_hover    = "#00000060" -- Close button border (current window)
+--theme.border_color_pressed  = "#ff0000"    -- ????
+
+
+-- WINDOW TITLEBAR
+
+theme.titlebar_bg_focus  = "#000000"
+theme.titlebar_fg_focus  = "#00ffff"
+
+theme.titlebar_bg_inactive = "#000000"
+theme.titlebar_fg_inactive = "#00aaff"
+
+theme.titlebar_bg_active   = "#000211"
+theme.titlebar_bg_active   = "#00aaff"
+
+theme.titlebar_bg_hover    = "#ff0062"
+--theme.titlebar_bg_pressed  = "#000000"    -- ????
+
+
+
+--  TITLEBAR BUTTONS
+theme.titlebar_close_button_normal = theme_path .. "/icons/titlebar/close_normal.png"
+theme.titlebar_close_button_focus  = theme_path .. "/icons/titlebar/close_focus.png"
+
+theme.titlebar_ontop_button_normal_inactive = theme_path .. "/icons/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive  = theme_path .. "/icons/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active = theme_path .. "/icons/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active  = theme_path .. "/icons/titlebar/ontop_focus_active.png"
+
+theme.titlebar_sticky_button_normal_inactive = theme_path .. "/icons/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive  = theme_path .. "/icons/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active = theme_path .. "/icons/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active  = theme_path .. "/icons/titlebar/sticky_focus_active.png"
+
+theme.titlebar_floating_button_normal_inactive = theme_path .. "/icons/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive  = theme_path .. "/icons/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active = theme_path .. "/icons/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active  = theme_path .. "/icons/titlebar/floating_focus_active.png"
+
+theme.titlebar_maximized_button_normal_inactive = theme_path .. "/icons/titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = theme_path .. "/icons/titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active = theme_path .. "/icons/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active  = theme_path .. "/icons/titlebar/maximized_focus_active.png"
+
+
+
+
 
 --theme.tasklist_plain_task_name     = true
 
@@ -76,14 +128,14 @@ theme.border_marked  = "#ffff00"
 ------------------------------------------------------------------------------------------------------
 
 -- Display the taglist squares
-theme.taglist_bg_empty           = nil
-theme.taglist_bg_selected        = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/selected_bg.png"))
-theme.taglist_bg_used            = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/used_bg.png"))
-theme.taglist_bg_urgent          = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/urgent_bg.png"))
-theme.taglist_bg_remote_selected = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/selected_bg_green.png"))
-theme.taglist_bg_remote_used     = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/used_bg_green.png"))
-theme.taglist_bg_hover           = d_mask(blind_pat.sur.flat_grad("#321DBA","#201379",theme.default_height))
-theme.taglist_fg_prefix                = theme.bg_normal
+--theme.taglist_bg_empty           = nil
+--theme.taglist_bg_selected        = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/selected_bg.png"))
+--theme.taglist_bg_used            = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/used_bg.png"))
+--theme.taglist_bg_urgent          = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/urgent_bg.png"))
+--theme.taglist_bg_remote_selected = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/selected_bg_green.png"))
+--theme.taglist_bg_remote_used     = cairo.Pattern.create_for_surface(cairo.ImageSurface.create_from_png(path .."Icon/bg/used_bg_green.png"))
+--theme.taglist_bg_hover           = d_mask(blind_pat.sur.flat_grad("#321DBA","#201379",theme.default_height))
+--theme.taglist_fg_prefix                = theme.bg_normal
 -- theme.taglist_squares_unsel            = function(wdg,m,t,objects,idx) return arrow.tag.gen_tag_bg(wdg,m,t,objects,idx,theme.taglist_bg_image_used)     end
 -- theme.taglist_squares_sel              = function(wdg,m,t,objects,idx) return arrow.tag.gen_tag_bg(wdg,m,t,objects,idx,theme.taglist_bg_image_selected) end
 -- theme.taglist_squares_sel_empty        = function(wdg,m,t,objects,idx) return arrow.tag.gen_tag_bg(wdg,m,t,objects,idx,theme.taglist_bg_image_selected) end
@@ -94,8 +146,9 @@ theme.taglist_fg_prefix                = theme.bg_normal
 -- theme.tasklist_bg_image_urgent                  = function(wdg,m,t,objects) return arrow.task.gen_task_bg(wdg,m,t,objects,theme.taglist_bg_image_urgent)     end
 -- theme.tasklist_bg_image_minimize                = function(wdg,m,t,objects) return arrow.task.gen_task_bg(wdg,m,t,objects,nil)     end
 
-theme.tasklist_disable_icon            = false
-theme.monochrome_icons                 = true
+--??
+--theme.tasklist_disable_icon            = false
+--theme.monochrome_icons                 = true
 
 
 ------------------------------------------------------------------------------------------------------
@@ -119,35 +172,21 @@ theme.border_width              = 6
 theme.border_color              = theme.fg_normal
 theme.wallpaper = "~/Pictures/space.jpg"
 
+
+
+
+
+
+
+
+
+
+
+
+
 --theme.dock_icon_color = { type = "linear", from = { 0, 0 }, to = { 0, 55 }, stops = { { 0, "#1889F2" }, { 1, "#083158" }}}
 
 --theme.draw_underlay = themeutils.draw_underlay
 
-
----------------  TITLEBAR ---------------------
--- Note this uses ./bits/titlebar_square.lua
--- Further customization can be done there
-
-
-
-    --  Titlebar main background:
-theme.titlebar.bg.focus    = "00ffff"
-    --  Titlebar buttons background:
---theme.titlebar.bg.inactive = "#00000000" -- Button background (ALL windows)
-theme.titlebar.bg.active   = "#000211"   -- Pressed button background (ALL windows), close button (inactive window)
-      --  hover    = "#cd3b3b",   -- Red X    close button for (current window)
-theme.titlebar.bg.hover    = "#ff0062"   -- Dk Pink  close button for (current window)
-      --hover    = "#cd3b3b",   -- Red X    close button for (current window)
-      --hover    = "#00aaff",   -- Dk Blue  close button for (current window)
-theme.titlebar.bg.pressed  = "#000000"    -- ????
-
-    -- Titlebar Buttons blurred border
---theme.titlebar.border_color.inactive = "#00000025" -- Button border  (ALL windows)
-    --active   = "#000966", -- Pressed button border (ALL windows), close button border (inactive window)
-theme.titlebar.border_color.active   = "#00000050" -- Pressed button border (ALL windows), close button border (inactive window)
-theme.titlebar.border_color.hover    = "#00000060" -- Close button border (current window)
-theme.titlebar.border_color.pressed  = "#ff0000"    -- ????
-
-    --bg_underlay = { type = "linear", from = { 0, 0 }, to = { 0, default_height }, stops = { { 0, "#3F474E" }, { 1, "#181B1E" }}}, -- This doesn't work at the moment, but it's from themeZilla, so maybe I can port it over
 
 return theme
