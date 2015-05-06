@@ -1,3 +1,6 @@
+-- Stagecraft OS Desktop Environment
+-- By Viktor Nova
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -5,11 +8,27 @@ awful.rules = require("awful.rules")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
+
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+
+-- Load Tyrannical Dynamic tagging configuration system
+-- This is responsible for making sure apps launch on the
+-- correct workspace and obey specific rules
+local tyrannical = require("tyrannical")
+-- Load user configuration for Tyrannical
+local apprules = require("app-rules")
+
+
+-- Load Debian menu entries
+ --require("debian.menu")
+
+-- i3-style window layouts
+local leaved   = require ("awesome-leaved")
+local treesome = require("treesome")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -42,7 +61,7 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
+editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -53,8 +72,13 @@ editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
-    awful.layout.suit.floating,
+local layouts =
+{
+--    leaved.layout.suit.tile.right,
+--    leaved.layout.suit.tile.left,
+--    leaved.layout.suit.tile.bottom,
+--    leaved.layout.suit.tile.top,
+--    treesome,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -79,12 +103,14 @@ end
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {}
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, awful.layout.layouts[1])
-end
+-- NOTE: Stagecraft OS uses the Tyrannical module to manage screen tags.
+-- Do not uncomment this section!! See ~/.config/awesome/app-rules.lua for window rules and tags configuration
 -- }}}
+
+-- tags = {}
+--    for s = 1, screen.count() do
+--       tags[s] = awful.tag({ "DERP 0", "DERP 000","DERP 000", "DERP 000", "DERP 4", "DERP 5", "6 RESEARCH ", "7 STAGECRAFT ", "8 DEV ", "9 WEB "}, s, layouts[1])
+--    end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
@@ -95,6 +121,8 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
+-- Add and uncomment the next line to get a Debian menu (doesn't work on Arch, obviously)
+ --                                    { "Debian", debian.menu.Debian_menu.Debian },
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal }
                                   }
@@ -108,7 +136,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+-- mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibox
 -- Create a textclock widget
@@ -192,7 +220,7 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    right_layout:add(mykeyboardlayout)
+--  right_layout:add(mykeyboardlayout)
 
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
@@ -250,8 +278,12 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ modkey, "Shift" }, "r", awesome.restart),
+
+    -- Viktor disabled the next one since since this is i3's keybinding for 'close window'
+    -- and he got tired of accidentally killing X all the time by accident.
+    -- Uncomment it if you're an awesome wizard
+--  awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
@@ -281,7 +313,15 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
+    awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end),
+
+    awful.key({ modkey, "Control" }, "space",
+              function(c)
+              c.ontop = not c.ontop
+              awful.client.floating.toggle()
+              end),
+
+    awful.key({ modkey, "Shift"   }, "s", function (c) c.sticky = not c.sticky end),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
@@ -343,17 +383,41 @@ for i = 1, 9 do
                   end))
 end
 
+
+----------------- Moving / Resizing windows while holding the mod key --------------------
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-    awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
+    awful.button({ modkey }, 3, awful.mouse.client.resize),
+    awful.button({ modkey }, 1,
+        function (c)
+             c.maximized_horizontal = false -- Un-maximize any window when
+             c.maximized_vertical   = false -- it's moved with the Mod key.
+             c.maximized            = false
+             c.fullscreen           = false
+            awful.mouse.client.move(c)
+        end)
+        )
 
 -- Set keys
 root.keys(globalkeys)
 -- }}}
 
--- {{{ Rules
--- Rules to apply to new clients (through the "manage" signal).
+
+
+
+
+
+
+-- {{{    RULES
+--        Rules to apply to new clients (through the "manage" signal).
+
+-- NOTE:  Stagecraft OS manages most of the client rules (rules that match specific windows)
+--        through the Tyrannical module, as opposed to the standard Awesome way
+--        (which would normally be to add rules in this section)
+--
+--        Unless you have a special case, you should add your app client rules in app-rules.lua, and not here
+--
+
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -361,19 +425,26 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
+                     maximized_vertical   = false,
+                     maximized_horizontal = false,
+                     maximized            = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
 }
--- }}}
+-- }}}  END OF RULES SECTION
+--      Further customization can be added in the SIGNALS section below
+
+
+
+
+
+
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -393,21 +464,77 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 
-    local titlebars_enabled = false
+-- ALL FLOATING WINDOWS ARE ON TOP
+    client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed. (Dialog windows are set explicitely as floating in the rule above, so they are also included in this rule)
+         if awful.client.floating.get(c) then                -- Set client on top if floating is being activated.
+           c.ontop = true
+         else
+           c.ontop = false                                   -- Set client not on top if not floated, or when being "un-floated"
+         end
+    end)
+
+-- MAXIMIZED CLIENTS GET NO BORDER
+    client.connect_signal("property::maximized", function(c)
+        c.border_width = c.maximized and 0 or beautiful.border_width
+    end)
+
+--  AUTO-MINIMIZE ANY INVISIBLE CLIENT (does not work yet)
+--  The idea is that any window somehow hidden from view is gets minimized so we can see a button for it on the taskbar
+--  I may have my terminology mixed up and need to approach this differently
+--      client.connect_signal("property::visible", function(c)   -- Trigger this when any client's visibility changes
+--             if awful.client.isvisible() ~= "true" then               -- Match if the client is invisible
+--               c.minimized = true
+--             else
+--             end
+--      end)
+
+--  ENABLE SLOPPY FOCUS
+--  Not sure what this does, since focus is already 'sloppy'.. leaving it disabled for now
+--    client.connect_signal("mouse::enter", function(c)
+--        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+--            and awful.client.focus.filter(c) then
+--            client.focus = c
+--        end
+--    end)
+
+--  ENABLE WINDOW DECORATIONS
+    local titlebars_enabled = true
+
+--  SETS BEHAVIOR OF CLICK-DRAGGING ON THE TITLEBAR
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
-                awful.button({ }, 1, function()
-                    client.focus = c
-                    c:raise()
-                    awful.mouse.client.move(c)
-                end),
                 awful.button({ }, 3, function()
                     client.focus = c
+                    cfloat = awful.client.floating.get(c)
                     c:raise()
-                    awful.mouse.client.resize(c)
+                    c.maximized = false
+                        if cfloat == true then
+                            awful.mouse.client.resize(c)
+                        else
+                            awful.mouse.client.move(c)
+                        end
+                    c.maximized = false
+                end),
+                awful.button({ }, 1, function()
+                    client.focus = c
+                    cfloat = awful.client.floating.get(c) -- Swap mouse behavior if client is floating or we are in the floating layout
+                    c:raise()
+                        if cfloat == true or awful.layout.get(c.screen) == awful.layout.suit.floating then
+                            awful.mouse.client.move(c)
+                        else
+                            awful.mouse.client.resize(c)
+                        end
+                    c.maximized = false
                 end)
                 )
+--      ATTEMPT TO RESIZE WITH BORDERS (does not work yet)
+--      local borders = awful.util.table.join(
+--          beautiful.border({ }, 1, function()
+--                   client.focus = c
+--                   awful.mouse.client.resize(c)
+--                   end)
+--          )
 
         -- Widgets that are aligned to the left
         local left_layout = wibox.layout.fixed.horizontal()
@@ -417,15 +544,16 @@ client.connect_signal("manage", function (c)
         -- Widgets that are aligned to the right
         local right_layout = wibox.layout.fixed.horizontal()
         right_layout:add(awful.titlebar.widget.floatingbutton(c))
+--        right_layout:add(awful.titlebar.widget.minimizebutton(c))
         right_layout:add(awful.titlebar.widget.maximizedbutton(c))
         right_layout:add(awful.titlebar.widget.stickybutton(c))
         right_layout:add(awful.titlebar.widget.ontopbutton(c))
         right_layout:add(awful.titlebar.widget.closebutton(c))
 
-        -- The title goes in the middle
+        -- The title goes on the left
         local middle_layout = wibox.layout.flex.horizontal()
         local title = awful.titlebar.widget.titlewidget(c)
-        title:set_align("center")
+        title:set_align("left")
         middle_layout:add(title)
         middle_layout:buttons(buttons)
 
