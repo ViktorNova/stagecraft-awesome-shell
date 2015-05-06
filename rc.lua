@@ -6,11 +6,13 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
+
 -- Widget and layout library
 local wibox = require("wibox")
 
 -- Theme handling library
 local beautiful = require("beautiful")
+
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
@@ -19,16 +21,16 @@ local menubar = require("menubar")
 -- This is responsible for making sure apps launch on the
 -- correct workspace and obey specific rules
 local tyrannical = require("tyrannical")
+
 -- Load user configuration for Tyrannical
 local apprules = require("app-rules")
 
-
 -- Load Debian menu entries
- --require("debian.menu")
+-- require("debian.menu")
 
 -- i3-style window layouts
-local leaved   = require ("awesome-leaved")
-local treesome = require("treesome")
+-- local leaved   = require ("awesome-leaved")
+-- local treesome = require("treesome")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -74,11 +76,6 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
---    leaved.layout.suit.tile.right,
---    leaved.layout.suit.tile.left,
---    leaved.layout.suit.tile.bottom,
---    leaved.layout.suit.tile.top,
---    treesome,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -89,7 +86,8 @@ local layouts =
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    awful.layout.suit.magnifier,
+    awful.layout.suit.floating
 }
 -- }}}
 
@@ -107,10 +105,14 @@ end
 -- Do not uncomment this section!! See ~/.config/awesome/app-rules.lua for window rules and tags configuration
 -- }}}
 
+-- {{{ Tags
+-- Define a tag table which hold all screen tags.
 -- tags = {}
---    for s = 1, screen.count() do
---       tags[s] = awful.tag({ "DERP 0", "DERP 000","DERP 000", "DERP 000", "DERP 4", "DERP 5", "6 RESEARCH ", "7 STAGECRAFT ", "8 DEV ", "9 WEB "}, s, layouts[1])
---    end
+-- for s = 1, screen.count() do
+    -- Each screen has its own tag table.
+--    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, awful.layout.layouts[1])
+-- end
+-- }}}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
@@ -144,6 +146,7 @@ mytextclock = awful.widget.textclock()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
+mywibox_bottom = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -207,15 +210,17 @@ for s = 1, screen.count() do
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.minimizedcurrenttags, mytasklist.buttons)
 
-    -- Create the wibox
+    -- Create the wiboxes (bars)
+    -- TOP BAR
     mywibox[s] = awful.wibox({ position = "top", screen = s })
+    -- BOTTOM BAR
+    mywibox_bottom[s] = awful.wibox({ position = "bottom", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
-    left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
 
     -- Widgets that are aligned to the right
@@ -232,7 +237,13 @@ for s = 1, screen.count() do
     layout:set_middle(mytasklist[s])
     layout:set_right(right_layout)
 
+    -- Set up the bottom bar
+    local bottom_layout = wibox.layout.align.horizontal()
+    bottom_layout:set_middle(mytaglist[s])
+
     mywibox[s]:set_widget(layout)
+    mywibox_bottom[s]:set_widget(bottom_layout)
+
 end
 -- }}}
 
