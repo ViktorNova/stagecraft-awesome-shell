@@ -59,7 +59,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+-- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("~/.config/awesome/stagecraft-os-theme/stagecraft-os-theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
@@ -109,7 +110,7 @@ end
 -- Define a tag table which hold all screen tags.
 -- tags = {}
 -- for s = 1, screen.count() do
-    -- Each screen has its own tag table.
+-- Each screen has its own tag table.
 --    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, awful.layout.layouts[1])
 -- end
 -- }}}
@@ -125,7 +126,7 @@ myawesomemenu = {
 
 -- Add and uncomment the next line to get a Debian menu (doesn't work on Arch, obviously)
  --                                    { "Debian", debian.menu.Debian_menu.Debian },
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+mymainmenu= awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal }
                                   }
                         })
