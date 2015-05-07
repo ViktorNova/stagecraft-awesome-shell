@@ -58,8 +58,8 @@ theme.border_color_hover    = "#00000060" -- Close button border (current window
 
 -- WINDOW TITLEBAR
 
-theme.titlebar_bg_focus  = "#000000"
-theme.titlebar_fg_focus  = "#00ffff"
+theme.titlebar_bg_focus  = "#00ffff"
+theme.titlebar_fg_focus  = "#000000"
 
 theme.titlebar_bg_inactive = "#000000"
 theme.titlebar_fg_inactive = "#00aaff"
