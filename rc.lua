@@ -25,6 +25,9 @@ local tyrannical = require("tyrannical")
 -- Load user configuration for Tyrannical
 local apprules = require("app-rules")
 
+-- Scratchdrop dropdown app (scratchpad) manager
+local drop      = require("scratchdrop")
+
 -- Load Debian menu entries
 -- require("debian.menu")
 
@@ -63,7 +66,7 @@ end
 beautiful.init("~/.config/awesome/stagecraft-os-theme/stagecraft-os-theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "terminology" or "qterminal" or os.getenv("TERMINAL")
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -311,6 +314,10 @@ globalkeys = awful.util.table.join(
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+
+    -- Dropdown terminal
+    awful.key({ modkey },            "F12",   function () drop(terminal) end),
+
 
     awful.key({ modkey }, "x",
               function ()
