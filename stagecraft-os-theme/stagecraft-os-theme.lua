@@ -44,7 +44,7 @@ theme.bg_systray     = theme.bg_normal
 
 -- WINDOW BORDERS
 
-theme.border_width   = "0"
+theme.border_width   = "3"
 theme.border_width2  = "2"
 theme.border_normal  = "#000000"
 theme.border_focus   = "#00ffff"
@@ -168,8 +168,6 @@ theme.titlebar_maximized_button_focus_active  = theme_path .. "/icons/titlebar/m
 theme.menu_height               = 20
 theme.menu_width                = 130
 theme.menu_border_width         = 2
-theme.border_width              = 6
-theme.border_color              = theme.fg_normal
 theme.wallpaper = "~/Pictures/space.jpg"
 
 
