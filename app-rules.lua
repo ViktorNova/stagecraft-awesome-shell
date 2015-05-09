@@ -84,6 +84,16 @@ tyrannical.tags = {
             "Oomidi",
             "Rosegarden" }
     } ,
+    {   name	= "  MIDI  ",
+        init        = false,
+        exclusive   = true,
+        volatile    = true,
+        layout      = awful.layout.suit.magnifier,
+        instance    = { } ,
+        class       = {
+            "Qmidiroute"
+        } ,
+    } ,
     {   name	= "  GLOBAL  ",
         init        = false,
         exclusive   = true,
@@ -92,10 +102,9 @@ tyrannical.tags = {
         instance    = {
             "GLOBAL PLUGINS - GLOBAL PLUGINS.carxp"
         } ,
-        class       = {
-            "Qmidiroute"
-        } ,
+        class       = { } ,
     } ,
+ 
     {   name	= "  SYSTEM  ",
         init        = false,
         exclusive   = true,
@@ -241,6 +250,13 @@ tyrannical.properties.size_hints_honor = {
     mythfrontend	= false
 }
 
+------- GLOBAL SETTINGS --------
+
+--Force popups/dialogs to have the same tags as the parent client
+tyrannical.settings.group_children  = true 
+
+-- Make all non-normal clients (dock, splash) intrusive
+force_odd_as_intrusive              = true
 
 -- {{{ Wallpaper
 if beautiful.wallpaper then
