@@ -497,7 +497,7 @@ client.connect_signal("manage", function (c)
 
 -- MAXIMIZED CLIENTS GET NO BORDER
     client.connect_signal("property::maximized", function(c)
-        c.border_width = c.maximized and 0 
+        c.border_width = 0 
     end)
 
 --  AUTO-MINIMIZE ANY INVISIBLE CLIENT (does not work yet)
