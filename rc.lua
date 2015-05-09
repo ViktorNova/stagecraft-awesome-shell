@@ -78,8 +78,7 @@ editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts =
-{
+local layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -111,12 +110,15 @@ end
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
--- tags = {}
--- for s = 1, screen.count() do
--- Each screen has its own tag table.
---    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, awful.layout.layouts[1])
---
--- end
+
+--tags = {}
+--  for s = 1, screen.count() do
+  -- Each screen has its own tag table.
+--  tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+--tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, awful.layout.layouts[1]) -- awesome-git version
+--end
+
+
 -- }}}
 
 -- {{{ Menu
@@ -206,11 +208,11 @@ for s = 1, screen.count() do
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
-    mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+    mylayoutbox[s]:buttons(awful.util.table.join(         -- VIKTOR - git version says (layouts, 1), etc
+                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -495,7 +497,7 @@ client.connect_signal("manage", function (c)
 
 -- MAXIMIZED CLIENTS GET NO BORDER
     client.connect_signal("property::maximized", function(c)
-        c.border_width = c.maximized and 0 or beautiful.border_width
+        c.border_width = c.maximized and 0 
     end)
 
 --  AUTO-MINIMIZE ANY INVISIBLE CLIENT (does not work yet)
@@ -595,6 +597,6 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus or "#00ffff" end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal or "#000000" end)
 -- }}}
