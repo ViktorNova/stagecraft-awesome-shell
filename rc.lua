@@ -318,7 +318,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     -- Dropdown terminal
-    awful.key({ modkey },            "F12",   function () drop(terminal) end),
+    awful.key({},                    "F12",   function () drop(terminal) end),
 
 
     awful.key({ modkey }, "x",
@@ -620,5 +620,7 @@ function run_once(prg,arg_string,pname,screen)
 end
 
 run_once("runsvdir","~/SYSTEM/SERVICES/ACTIVE")
+run_once("/home/stagecraft/Dev/stagecraft-daemons/global-apps")
+
 --run_once("pidgin",nil,nil,2)
 --run_once("wicd-client",nil,"/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
