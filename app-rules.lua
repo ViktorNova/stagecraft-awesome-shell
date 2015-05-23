@@ -94,6 +94,16 @@ tyrannical.tags = {
             "Qmidiroute"
         } ,
     } ,
+    {   name	= "  DMX  ",
+        init        = false,
+        exclusive   = true,
+        volatile    = true,
+        layout      = awful.layout.suit.magnifier,
+        instance    = { } ,
+        class       = {
+            "Qlcplus"
+        } ,
+    } ,
     {   name	= "  GLOBAL  ",
         init        = false,
         exclusive   = true,
