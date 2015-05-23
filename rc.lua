@@ -221,9 +221,9 @@ for s = 1, screen.count() do
 
     -- Create the wiboxes (bars)
     -- TOP BAR
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", ontop = true, screen = s })
     -- BOTTOM BAR
-    mywibox_bottom[s] = awful.wibox({ position = "bottom", screen = s })
+    mywibox_bottom[s] = awful.wibox({ position = "bottom", ontop = true, screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -412,10 +412,10 @@ clientbuttons = awful.util.table.join(
     awful.button({ modkey }, 3, awful.mouse.client.resize),
     awful.button({ modkey }, 1,
         function (c)
-             c.maximized_horizontal = false -- Un-maximize any window when
-             c.maximized_vertical   = false -- it's moved with the Mod key.
-             c.maximized            = false
-             c.fullscreen           = false
+            c.maximized_horizontal = false -- Un-maximize any window when
+            c.maximized_vertical   = false -- it's moved with the Mod key.
+            c.maximized            = false
+            c.fullscreen           = false
             awful.mouse.client.move(c)
         end)
         )
@@ -481,7 +481,7 @@ client.connect_signal("manage", function (c)
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end
-    elseif not c.size_hints.user_position and not c.size_hints.program_position then
+    --elseif not c.size_hints.user_position and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count change
         awful.placement.no_offscreen(c)
     end
@@ -497,8 +497,13 @@ client.connect_signal("manage", function (c)
 
 -- MAXIMIZED CLIENTS GET NO BORDER
     client.connect_signal("property::maximized", function(c)
-        c.border_width = 0 
+        if c.maximized then
+          c.border_width = 0                                  -- No border if maximized
+        else
+          c.border_width = beautiful.border_width             -- Put the border back on it
+        end
     end)
+    
 
 --  AUTO-MINIMIZE ANY INVISIBLE CLIENT (does not work yet)
 --  The idea is that any window somehow hidden from view is gets minimized so we can see a button for it on the taskbar
