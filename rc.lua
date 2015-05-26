@@ -470,8 +470,16 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", function (c)
-    if not awesome.startup then
+client.connect_signal("manage", function (c, startup)
+    -- Enable sloppy focus
+    c:connect_signal("mouse::enter", function(c)
+        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            and awful.client.focus.filter(c) then
+            client.focus = c
+        end
+    end)
+    
+    if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
         -- awful.client.setslave(c)
@@ -481,10 +489,11 @@ client.connect_signal("manage", function (c)
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end
-    --elseif not c.size_hints.user_position and not c.size_hints.program_position then
-        -- Prevent clients from being unreachable after screen count change
-        awful.placement.no_offscreen(c)
+    awful.placement.no_offscreen(c)
+    awful.placement.centered(p)
     end
+    
+    
 
 -- ALL FLOATING WINDOWS ARE ON TOP
     client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed. (Dialog windows are set explicitely as floating in the rule above, so they are also included in this rule)
