@@ -318,7 +318,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     -- Dropdown terminal
-    awful.key({ modkey },            "F12",   function () drop(terminal) end),
+    awful.key({},                    "F12",   function () drop(terminal) end),
 
 
     awful.key({ modkey }, "x",
@@ -490,7 +490,7 @@ client.connect_signal("manage", function (c, startup)
             awful.placement.no_offscreen(c)
         end
     awful.placement.no_offscreen(c)
-    awful.placement.centered(p)
+    awful.placement.centered(c,p)
     end
     
     
