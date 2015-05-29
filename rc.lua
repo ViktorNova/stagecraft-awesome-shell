@@ -455,6 +455,12 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
 
+-- VIKTOR:
+-- Not sure if this is needed anymore, uncomment it if some floating
+-- dialogs are still ending up not on top
+--    { rule = { type = "dialog" },                            -- Explicitely set all dialog windows as floating,
+--      properties = { floating = true } }
+
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -496,7 +502,14 @@ client.connect_signal("manage", function (c, startup)
     
 
 -- ALL FLOATING WINDOWS ARE ON TOP
-    client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed. (Dialog windows are set explicitely as floating in the rule above, so they are also included in this rule)
+    if awful.client.floating.get(c) then                     -- Match all new windows that start out floating
+      c.ontop = true
+    else
+      c.ontop = false                                        -- Don't allow non-floating window to start themselves on-top
+    end
+    
+    client.connect_signal("property::floating", function(c)  -- Trigger this function whenever a client's floating state gets changed.
+                                                             -- (Dialog windows are set explicitely as floating in the rule above, so they are also included in this rule)
          if awful.client.floating.get(c) then                -- Set client on top if floating is being activated.
            c.ontop = true
          else
@@ -602,6 +615,8 @@ client.connect_signal("manage", function (c, startup)
         awful.titlebar(c):set_widget(layout)
     end
 end)
+
+
 
 -- Enable sloppy focus
 client.connect_signal("mouse::enter", function(c)
