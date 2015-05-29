@@ -1,0 +1,5 @@
+debug.lua:23 Assertion Failed: Cairo context entered error state: INVALID_SIZE'
+	(in function gears.debug.assert)
+
+-drawable.lua:54 in upvalue 'do_redraw'
+	     :247: in function drawable.lua:244
