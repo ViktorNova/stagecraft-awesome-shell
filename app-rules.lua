@@ -155,6 +155,18 @@ tyrannical.tags = {
 	}
     },
 
+      {	name	= " WEB1 ",
+        init        = false,
+        exclusive   = true,
+        volatile    = true,
+      --icon        = "~net.png",                 -- Use this icon for the tag (uncomment with a real path)
+        screen      = 1,
+        layout      = awful.layout.suit.tile,      -- Use the tile layout
+        class = {
+            "Google-chrome"
+        }
+    },
+
   {	name	= " REMOTE ",
         init        = false,
         exclusive   = false,
@@ -196,7 +208,8 @@ tyrannical.properties.intrusive = {
     "plasmoidviewer",
     "Xephyr",
     "kruler",
-    "plasmaengineexplorer"
+    "plasmaengineexplorer",
+    "lxqt-panel"    --LXQT-PANEL
 }
 
 -- Ignore the tiled layout for the matching clients
@@ -251,6 +264,11 @@ tyrannical.properties.centered = {
     "kcalc"    
 }
 
+-- Place the matching clients on all tags
+tyrannical.properties.sticky = {
+    "lxqt-panel"    --LXQT-PANEL
+}
+
 -- Do not honor size hints request for those classes
 tyrannical.properties.size_hints_honor = { 
     xterm		= false, 
@@ -259,6 +277,18 @@ tyrannical.properties.size_hints_honor = {
     sauer_client	= false, 
     mythfrontend	= false
 }
+
+
+
+
+---- Set custom border widths for specific clients
+--tyrannical.properties.border_width  = {
+--    lxqtpanel   =   0,
+--    xterm       =   0
+--}
+
+
+
 
 ------- GLOBAL SETTINGS --------
 
