@@ -219,40 +219,48 @@ for s = 1, screen.count() do
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.minimizedcurrenttags, mytasklist.buttons)
 
-    -- Create the wiboxes (bars)
-    -- TOP BAR
-    mywibox[s] = awful.wibox({ position = "top", ontop = true, screen = s })
-    -- BOTTOM BAR
+--  SYSTEM PANELS/BARS (aka "wibox"):
+
+----  TOP BAR ------------------------------------------------------------------
+----  TODO: Break this part out into it's own file in a subdirectory
+----  TODO: and include all .lua files in that subdirectory.
+--
+----  TODO: Then use my (to be written) config tool to allow users with low
+----  TODO: resources to switch between LxQt top panel and this Awesome panel
+----  TODO: which would rename this from panel-top.lua.disabled to panel-top.lua
+----  TODO: and disable lxqt-panel through dbus or circusR
+
+--    mywibox[s] = awful.wibox({ position = "top", ontop = true, screen = s })
+----  Widgets that are aligned to the left
+--    local left_layout = wibox.layout.fixed.horizontal()
+--    left_layout:add(mylauncher)
+--    left_layout:add(mypromptbox[s])
+----  Widgets that are aligned to the right
+--    local right_layout = wibox.layout.fixed.horizontal()
+----  right_layout:add(mykeyboardlayout)
+--    if s == 1 then right_layout:add(wibox.widget.systray()) end
+--    right_layout:add(mytextclock)
+--    right_layout:add(mylayoutbox[s])
+--    local layout = wibox.layout.align.horizontal()
+--    layout:set_left(left_layout)
+--    layout:set_middle(mytasklist[s])
+--    layout:set_right(right_layout)
+--    mywibox[s]:set_widget(layout)
+
+--  BOTTOM BAR -----------------------------------------------------------------
     mywibox_bottom[s] = awful.wibox({ position = "bottom", ontop = true, screen = s })
-
-    -- Widgets that are aligned to the left
-    local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(mylauncher)
-    left_layout:add(mypromptbox[s])
-
-    -- Widgets that are aligned to the right
-    local right_layout = wibox.layout.fixed.horizontal()
---  right_layout:add(mykeyboardlayout)
-
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(mytextclock)
-    right_layout:add(mylayoutbox[s])
-
-    -- Now bring it all together (with the tasklist in the middle)
-    local layout = wibox.layout.align.horizontal()
-    layout:set_left(left_layout)
-    layout:set_middle(mytasklist[s])
-    layout:set_right(right_layout)
-
-    -- Set up the bottom bar
     local bottom_layout = wibox.layout.align.horizontal()
     bottom_layout:set_middle(mytaglist[s])
-
-    mywibox[s]:set_widget(layout)
     mywibox_bottom[s]:set_widget(bottom_layout)
 
 end
 -- }}}
+
+
+
+
+
+
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
@@ -494,9 +502,12 @@ client.connect_signal("manage", function (c, startup)
         if not c.size_hints.user_position and not c.size_hints.program_position then
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
+            awful.placement.centered(c,p)
         end
+
+    -- NEVER start a window off-screen
     awful.placement.no_offscreen(c)
-    awful.placement.centered(c,p)
+
     end
     
     
