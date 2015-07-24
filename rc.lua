@@ -137,19 +137,10 @@ mymainmenu= awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
 
--- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
--- mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibox
--- Create a textclock widget
-mytextclock = awful.widget.textclock()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -165,6 +156,35 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
                     awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
                     )
+
+
+
+for s = 1, screen.count() do
+
+
+--  SYSTEM PANELS/BARS (aka "wibox"):
+
+----  TOP BAR ------------------------------------------------------------------
+----  TODO: Break this part out into it's own file in a subdirectory
+----  TODO: and include all .lua files in that subdirectory.
+--
+----  TODO: Then use my (to be written) config tool to allow users with low
+----  TODO: resources to switch between LxQt top panel and this Awesome panel
+----  TODO: which would rename this from panel-top.lua.disabled to panel-top.lua
+----  TODO: and disable lxqt-panel through dbus or circusR
+
+-- Awesome-menu configuration
+--mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+--                                     menu = mymainmenu })
+
+-- Keyboard map indicator and switcher
+-- mykeyboardlayout = awful.widget.keyboardlayout()
+
+-- {{{ Wibox
+-- Create a textclock widget
+mytextclock = awful.widget.textclock()
+
+--  Create a tasklist widget (taskbar)
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
@@ -201,8 +221,24 @@ mytasklist.buttons = awful.util.table.join(
                                               awful.client.focus.byidx(-1)
                                               if client.focus then client.focus:raise() end
                                           end))
+--  Add the tasklist widget (taskbar)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.minimizedcurrenttags, mytasklist.buttons)
+    mywibox[s] = awful.wibox({ position = "top", ontop = true, screen = s })
+--  Widgets that are aligned to the left
+    local left_layout = wibox.layout.fixed.horizontal()
+--  Widgets that are aligned to the right
+    local right_layout = wibox.layout.fixed.horizontal()
+--  right_layout:add(mykeyboardlayout)
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(mytextclock)
+--    right_layout:add(mylayoutbox[s])
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_middle(mytasklist[s])
+    layout:set_right(right_layout)
+    mywibox[s]:set_widget(layout)
 
-for s = 1, screen.count() do
+--  BOTTOM BAR -----------------------------------------------------------------
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
@@ -213,45 +249,39 @@ for s = 1, screen.count() do
                            awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
-    -- Create a taglist widget
+
+    -- Create a taglist widget for switching between tags/workspaces
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
-    -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.minimizedcurrenttags, mytasklist.buttons)
-
---  SYSTEM PANELS/BARS (aka "wibox"):
-
-----  TOP BAR ------------------------------------------------------------------
-----  TODO: Break this part out into it's own file in a subdirectory
-----  TODO: and include all .lua files in that subdirectory.
---
-----  TODO: Then use my (to be written) config tool to allow users with low
-----  TODO: resources to switch between LxQt top panel and this Awesome panel
-----  TODO: which would rename this from panel-top.lua.disabled to panel-top.lua
-----  TODO: and disable lxqt-panel through dbus or circusR
-
---    mywibox[s] = awful.wibox({ position = "top", ontop = true, screen = s })
-----  Widgets that are aligned to the left
---    local left_layout = wibox.layout.fixed.horizontal()
---    left_layout:add(mylauncher)
---    left_layout:add(mypromptbox[s])
-----  Widgets that are aligned to the right
---    local right_layout = wibox.layout.fixed.horizontal()
-----  right_layout:add(mykeyboardlayout)
---    if s == 1 then right_layout:add(wibox.widget.systray()) end
---    right_layout:add(mytextclock)
---    right_layout:add(mylayoutbox[s])
---    local layout = wibox.layout.align.horizontal()
---    layout:set_left(left_layout)
---    layout:set_middle(mytasklist[s])
---    layout:set_right(right_layout)
---    mywibox[s]:set_widget(layout)
-
---  BOTTOM BAR -----------------------------------------------------------------
+    -- Initialize the bottom bar
     mywibox_bottom[s] = awful.wibox({ position = "bottom", ontop = true, screen = s })
-    local bottom_layout = wibox.layout.align.horizontal()
-    bottom_layout:set_middle(mytaglist[s])
-    mywibox_bottom[s]:set_widget(bottom_layout)
+--  NOTE:   A sub-layout that contains other sub-layouts should be set to fixed.
+--            Sub-layouts that only contain widgets can be set to 'fixed; or 'align
+--          :set_right & :set_left only work on 'align' wibox layouts
+--          :add  only works on 'fixed' wibox layouts
+--  Left side:
+    local bottom_left_layout = wibox.layout.fixed.horizontal()
+    --bottom_left_layout:set_left(mytaglist[s])
+    bottom_left_layout:add(mytaglist[s])
+
+--  Right side:
+    local bottom_right_layout = wibox.layout.fixed.horizontal()
+    bottom_right_layout:add(mypromptbox[s])
+    bottom_right_layout:add(mylayoutbox[s])
+--    bottom_right_layout:set_right(mylayoutbox[s])
+--    bottom_right_layout:set_left(mypromptbox[s])
+
+    local bottom_bar = wibox.layout.align.horizontal()
+    bottom_bar:set_left(bottom_left_layout)
+    bottom_bar:set_middle()
+    bottom_bar:set_right(bottom_right_layout)
+
+--  THIS IS MUCH SIMPLER TO UNDERSTAND(although less flexible):
+--    bottom_bar:set_left(mytaglist[s])
+--    bottom_bar:set_middle(mypromptbox[s])
+--    bottom_bar:set_right(mylayoutbox[s])
+
+    mywibox_bottom[s]:set_widget(bottom_bar)
 
 end
 -- }}}
@@ -463,6 +493,8 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
 
+    { rule = { class = "lxqt-panel" },
+      properties = { border_width = 0} },
 -- VIKTOR:
 -- Not sure if this is needed anymore, uncomment it if some floating
 -- dialogs are still ending up not on top

@@ -217,6 +217,7 @@ tyrannical.properties.floating = {
     "Znotes",
     "Xfce4-notes",
     "lxqt-runner",
+    "lxqt-panel",
     "MPlayer", 
     "pinentry", 
     "ksnapshot", 
@@ -281,11 +282,11 @@ tyrannical.properties.size_hints_honor = {
 
 
 
----- Set custom border widths for specific clients
+-- Set custom border widths for specific clients
 --tyrannical.properties.border_width  = {
---    lxqtpanel   =   0,
---    xterm       =   0
+--    lxqt-panel =   0
 --}
+
 
 
 
