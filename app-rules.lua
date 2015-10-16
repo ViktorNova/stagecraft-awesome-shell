@@ -73,7 +73,7 @@ tyrannical.tags = {
         screen      = 1,
         clone_on    = 2, -- Create a single instance of this tag on screen 1, but also show it on screen 2
                          -- The tag can be used on both screen, but only one at once
-        layout      = awful.layout.suit.tile                          ,
+        layout      = awful.layout.suit.tile.bottom,
         class = { 
             "Los-2014", 
             "Qtractor", 
@@ -88,7 +88,7 @@ tyrannical.tags = {
         init        = false,
         exclusive   = true,
         volatile    = true,
-        layout      = awful.layout.suit.magnifier,
+        layout      = awful.layout.suit.tile,
         instance    = { } ,
         class       = {
             "Qmidiroute"
@@ -136,14 +136,15 @@ tyrannical.tags = {
     
   {	name	= "  DEV  ",
         init        = false,
-        exclusive   = false,
+        exclusive   = true,
         volatile    = true,
       --icon        = "~net.png",                 -- Use this icon for the tag (uncomment with a real path)
         screen      = 1,
         layout      = awful.layout.suit.tile,      -- Use the tile layout
         class = {
             "Kdevelop", 
-            "Kate", 
+            "Kate",
+            "QtCreator", 
             "Tea", 
             "juffed",
             "jetbrains-pycharm", 
