@@ -66,8 +66,8 @@ end
 beautiful.init("~/.config/awesome/stagecraft-os-theme/stagecraft-os-theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "terminology" or "qterminal" or os.getenv("TERMINAL")
-editor = os.getenv("EDITOR") or "editor"
+terminal = "qterminal" or os.getenv("TERMINAL")
+editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
