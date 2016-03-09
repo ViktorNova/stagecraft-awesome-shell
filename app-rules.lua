@@ -63,7 +63,7 @@ tyrannical.tags = {
         exec_once   = {"dolphin"}, --When the tag is accessed for the first time, execute this command
         class  = {
             "Hydrogen", 
-            "drumkv1",
+	    "Drumkv1_jack",
         }
     } ,
     {	name 	= "  SEQ  ",
