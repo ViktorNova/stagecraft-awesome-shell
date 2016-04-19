@@ -73,7 +73,7 @@ tyrannical.tags = {
         screen      = 1,
         clone_on    = 2, -- Create a single instance of this tag on screen 1, but also show it on screen 2
                          -- The tag can be used on both screen, but only one at once
-        layout      = awful.layout.suit.tile.bottom,
+        layout      = awful.layout.suit.floating,
         class = { 
             "Los-2014", 
             "Qtractor", 
