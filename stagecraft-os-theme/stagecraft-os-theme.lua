@@ -15,14 +15,14 @@ theme = {}
 
 --local path = debug.getinfo(1,"S").source:gsub("themeStagecraft.lua",""):gsub("@","")
 
-------------------------------------------------------------------------------------------------------
---                                                                                                  --
---                                    DEFAULT COLORS, FONT AND SIZE                                 --
---                                                                                                  --
-------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+--                                                                                            
+--                                    DEFAULT COLORS, FONT AND SIZE                          
+--                                                                                             
+-----------------------------------------------------------------------------------------------
 
-theme.default_height = 14                       -- ????
-theme.font           = "Enter Sansman Bold 12"  -- Controls size of all titlebars and desktop bars
+theme.default_height = 12                       -- ????
+theme.font           = "Xolonium Bold 10"  -- Controls size of all titlebars and desktop bars
 --theme.path           = path
 
 -- BAR COLORS
