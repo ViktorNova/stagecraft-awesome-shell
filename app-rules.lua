@@ -75,7 +75,7 @@ tyrannical.tags = {
                          -- The tag can be used on both screen, but only one at once
         layout      = awful.layout.suit.floating,
         class = { 
-            "Los-2014", 
+            "Los", 
             "Qtractor", 
             "Muse", 
             "LMMS" , 
@@ -188,6 +188,7 @@ tyrannical.properties.intrusive = {
     "lxqt-panel",
     "lxqt-runner", 
     "qterminal",
+--    "Yakuake", 
     "pcmanfm-qt", 
     "Znotes",
     "Xfce4-notes",
@@ -231,7 +232,8 @@ tyrannical.properties.floating = {
     "Qlogout",
     "kmix", 
     "kcalc", 
-    "xcalc","Yakuake", 
+    "xcalc",
+    "Yakuake", 
     "Select Color$", 
     "kruler", 
     "kcolorchooser", 
@@ -268,7 +270,8 @@ tyrannical.properties.centered = {
 
 -- Place the matching clients on all tags
 tyrannical.properties.sticky = {
-    "lxqt-panel"    --LXQT-PANEL
+    "lxqt-panel",    --LXQT-PANEL
+    "Yakuake" 
 }
 
 -- Do not honor size hints request for those classes
